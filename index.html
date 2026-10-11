@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Homeroom English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Lexend:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #EDF1F6; --surface: #FFFFFF; --surface-2: #E4EAF3; --ink: #14213D; --muted: #55657F;
+  --line: #CFD8E6; --rule: #DCE5F2; --accent: #F4B400; --accent-ink: #14213D;
+  --primary: #14213D; --on-primary: #FFFFFF;
+  --good: #187A4E; --good-bg: #DDF3E8; --bad: #B8402F; --bad-bg: #FADFDA;
+  --font-display: "Bricolage Grotesque", "Noto Sans KR", system-ui, sans-serif;
+  --font-body: "Lexend", "Noto Sans KR", system-ui, sans-serif;
+  --font-ko: "Noto Sans KR", "Lexend", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0D1526; --surface: #16213A; --surface-2: #1E2B49; --ink: #E8EEF9; --muted: #A1AECA;
+    --line: #2B3A5C; --rule: #22304F; --primary: #8FB0FF; --on-primary: #0D1526;
+    --good: #5FD39B; --good-bg: #17382B; --bad: #FF8E7C; --bad-bg: #432019;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55; padding-inline: 16px; padding-block: env(safe-area-inset-top, 0px) calc(96px + env(safe-area-inset-bottom, 0px)); }
+.wrap { max-width: 720px; margin-inline: auto; display: flex; flex-direction: column; gap: 18px; padding-block-start: 18px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.muted { color: var(--muted); }
+.top { display: flex; flex-direction: column; gap: 14px; }
+.brand { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.brand h1 { font-size: 26px; font-weight: 800; }
+.brand span { font-size: 13px; color: var(--muted); font-family: var(--font-ko); }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--surface-2); padding: 5px; border-radius: 14px; }
+.seg button { border: 0; background: transparent; padding: 10px 12px; border-radius: 10px; text-align: left; display: flex; flex-direction: column; min-width: 0; }
+.seg button b { font-family: var(--font-ko); font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
+.seg button small { font-size: 12px; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--surface); box-shadow: 0 1px 0 var(--line), inset 0 -3px 0 var(--accent); }
+.stats { display: flex; gap: 22px; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.stat { display: flex; flex-direction: column; }
+.stat b { font-family: var(--font-display); font-size: 24px; font-weight: 700; line-height: 1.1; }
+.stat span { font-size: 12px; color: var(--muted); font-family: var(--font-ko); }
+.daybar { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 8px 10px; }
+.daybar .mid { flex: 1; text-align: center; min-width: 0; }
+.daybar .mid b { font-family: var(--font-display); font-size: 20px; font-weight: 800; }
+.daybar .mid small { display: block; font-size: 12px; color: var(--muted); font-family: var(--font-ko); }
+.daybar button { border: 0; background: var(--surface-2); border-radius: 10px; width: 44px; height: 44px; font-size: 18px; }
+.daybar button:disabled { opacity: .35; cursor: default; }
+.checks { display: flex; gap: 8px; flex-wrap: wrap; }
+.check { font-family: var(--font-ko); font-size: 13px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: var(--surface); }
+.check.on { background: var(--good-bg); color: var(--good); border-color: var(--good); font-weight: 700; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.subtabs { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { border: 1px solid var(--line); background: var(--surface); padding: 7px 14px; border-radius: 999px; font-family: var(--font-ko); font-size: 14px; }
+.chip[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+.btn { border: 0; background: var(--primary); color: var(--on-primary); padding: 12px 18px; border-radius: 12px; font-weight: 500; font-family: var(--font-ko); min-height: 46px; }
+.btn.alt { background: var(--surface-2); color: var(--ink); }
+.btn.hot { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.grow { flex: 1 1 140px; }
+.card { border: 1px solid var(--line); border-top: 6px solid var(--accent); border-radius: 12px; background-color: var(--surface); background-image: repeating-linear-gradient(to bottom, transparent 0 35px, var(--rule) 35px 36px); background-position: 0 14px; min-height: 250px; padding: 22px 20px; width: 100%; text-align: left; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.card .word { font-family: var(--font-display); font-size: clamp(36px, 11vw, 54px); font-weight: 800; line-height: 1.05; overflow-wrap: anywhere; }
+.card .pos { color: var(--muted); font-size: 14px; }
+.card .hint { color: var(--muted); font-size: 13px; font-family: var(--font-ko); }
+.card .mean { font-family: var(--font-ko); font-size: 30px; font-weight: 700; }
+.card .eg { font-size: 18px; }
+.card mark { background: var(--accent); color: var(--accent-ink); padding: 0 4px; border-radius: 4px; }
+.dots { display: inline-flex; gap: 3px; vertical-align: middle; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); display: block; }
+.dots i.on { background: var(--accent); }
+.q-sentence { font-size: 20px; line-height: 1.6; margin: 0; }
+.q-sentence u { text-decoration: none; border-bottom: 3px solid var(--accent); padding: 0 14px; }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.choices.one { grid-template-columns: 1fr; }
+@media (max-width: 460px) { .choices { grid-template-columns: 1fr; } }
+.choice { border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 12px 14px; text-align: left; min-height: 48px; font-size: 16px; overflow-wrap: anywhere; }
+.choice.right { background: var(--good-bg); border-color: var(--good); color: var(--good); font-weight: 600; }
+.choice.wrong { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+.feedback { font-family: var(--font-ko); font-size: 15px; margin: 0; }
+.progress { height: 8px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+.progress > i { display: block; height: 100%; background: var(--accent); }
+.words { display: flex; flex-wrap: wrap; gap: 8px; }
+.wchip { border: 1px solid var(--line); border-radius: 10px; padding: 5px 10px; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; background: var(--surface); }
+.wchip.today { border-color: var(--accent); box-shadow: inset 0 -3px 0 var(--accent); }
+.passage { max-width: 65ch; font-size: 17px; line-height: 1.8; margin: 0; }
+.gloss { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font-size: 14px; margin: 0; }
+.gloss dt { font-weight: 600; }
+.gloss dd { margin: 0; font-family: var(--font-ko); color: var(--muted); }
+.qblock { display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+.qblock p.q { margin: 0; font-weight: 500; }
+.sentence-big { font-family: var(--font-display); font-size: clamp(22px, 5.5vw, 30px); font-weight: 700; line-height: 1.3; margin: 0; }
+.note { background: var(--surface-2); border-radius: 12px; padding: 12px 14px; font-family: var(--font-ko); font-size: 14px; }
+.diff span { padding: 1px 5px; border-radius: 5px; margin-right: 2px; display: inline-block; }
+.diff .ok { background: var(--good-bg); color: var(--good); }
+.diff .miss { background: var(--bad-bg); color: var(--bad); text-decoration: underline; }
+textarea { width: 100%; font: inherit; font-size: 17px; line-height: 1.6; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); resize: vertical; min-height: 96px; }
+input[type="text"] { font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); width: 100%; }
+label { font-size: 13px; color: var(--muted); font-family: var(--font-ko); display: block; margin-bottom: 4px; }
+.wc { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+ul.list { margin: 0; padding-left: 20px; font-family: var(--font-ko); font-size: 15px; }
+.saved { border-top: 1px solid var(--line); padding-top: 10px; font-size: 15px; white-space: pre-wrap; }
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--line); padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)); z-index: 5; }
+.tabbar nav { max-width: 720px; margin-inline: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.tabbar button { border: 0; background: transparent; padding: 8px 4px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; line-height: 1.2; min-width: 0; }
+.tabbar button b { font-family: var(--font-ko); font-size: 15px; font-weight: 700; }
+.tabbar button small { font-size: 11px; color: var(--muted); }
+.tabbar button[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+.tabbar button[aria-current="page"] small { color: var(--accent-ink); }
+#toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(86px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-family: var(--font-ko); font-size: 14px; z-index: 10; max-width: calc(100% - 32px); }
+#toast[hidden] { display: none; }
+details { font-family: var(--font-ko); font-size: 14px; color: var(--muted); }
+details summary { cursor: pointer; }
+footer { font-size: 12px; color: var(--muted); font-family: var(--font-ko); padding-bottom: 8px; }
+@media (prefers-reduced-motion: no-preference) { .progress > i { transition: width .3s; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><h1>Homeroom English</h1><span>매일 새로운 문제 · 하루 15분</span></div>
+    <div class="seg" id="profiles" role="group" aria-label="학생 선택"></div>
+    <div class="stats" id="stats"></div>
+    <div class="daybar" id="daybar"></div>
+    <div class="checks" id="checks"></div>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <details>
+    <summary>이름 바꾸기</summary>
+    <div class="row" style="margin-top:10px">
+      <div class="grow"><label for="name-g5">5학년</label><input type="text" id="name-g5" maxlength="12"></div>
+      <div class="grow"><label for="name-g8">8학년</label><input type="text" id="name-g8" maxlength="12"></div>
+    </div>
+  </details>
+  <footer>로그인이 필요 없어요. 진행 기록은 이 기기의 이 브라우저에만 저장됩니다. 하루에 문제 세트가 하나씩 열리고, 30일이 지나면 처음부터 복습으로 이어져요.</footer>
+</div>
+<div class="tabbar"><nav id="tabs" aria-label="과목"></nav></div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+"use strict";
+const META = { g5: { label: "Grade 5", min: 20, starters: ["My favorite ... is ...", "It lives in ...", "I like it because ...", "One time, I ..."], checklist: ["문장 첫 글자는 대문자", "문장 끝에 . ? !", "because로 이유 말하기", "4문장 이상 쓰기"] },
+               g8: { label: "Grade 8", min: 40, starters: ["In my opinion, ...", "One reason is that ...", "For example, ...", "However, ...", "In conclusion, ..."], checklist: ["첫 문장에 내 주장", "이유 2개 + 예시", "연결어(First, Also, However) 쓰기", "마지막에 결론 문장"] } };
+const DATA = {};
+DATA.g5 = {};
+DATA.g5.words = [
+["ancient","adj.","고대의","The museum has ancient Egyptian tools."],
+["observe","v.","관찰하다","Scientists observe animals without disturbing them."],
+["fragile","adj.","깨지기 쉬운","Be careful, this glass is fragile."],
+["journey","n.","여정, 긴 여행","The journey to the mountains took all day."],
+["shelter","n.","피난처, 대피처","The cabin gave us shelter from the storm."],
+["measure","v.","재다, 측정하다","Use a ruler to measure the width of your desk."],
+["habitat","n.","서식지","A pond is a good habitat for frogs."],
+["generous","adj.","너그러운, 후한","She is generous and always shares her lunch."],
+["evidence","n.","증거","Footprints are evidence that someone walked here."],
+["predict","v.","예측하다","Can you predict what will happen next?"],
+["rare","adj.","드문, 희귀한","A white deer is very rare."],
+["invent","v.","발명하다","Engineers invent new ways to clean water."],
+["curious","adj.","호기심 많은","The curious puppy sniffed every corner."],
+["enormous","adj.","엄청나게 큰","An enormous whale swam under the boat."],
+["protect","v.","보호하다","A helmet can protect your head."],
+["collect","v.","모으다","I like to collect rocks on every trip."],
+["explore","v.","탐험하다","We want to explore the cave with a flashlight."],
+["describe","v.","묘사하다, 설명하다","Can you describe the person you saw?"],
+["compare","v.","비교하다","Compare the two maps to find the differences."],
+["difficult","adj.","어려운","The last math problem was very difficult."],
+["population","n.","인구, 개체 수","The population of the town doubled in ten years."],
+["community","n.","지역 사회","Our community gathers for a food drive each fall."],
+["pollution","n.","오염","Pollution makes the river unsafe for fish."],
+["recycle","v.","재활용하다","Please recycle the plastic bottles."],
+["energy","n.","에너지","Solar panels turn sunlight into energy."],
+["temperature","n.","온도","The temperature dropped below freezing last night."],
+["forecast","n.","(날씨) 예보","The forecast says it will rain on Friday."],
+["volcano","n.","화산","Hot lava flowed out of the volcano."],
+["planet","n.","행성","Mars is the fourth planet from the sun."],
+["gravity","n.","중력","Gravity pulls objects toward the ground."],
+["insect","n.","곤충","An insect has six legs."],
+["survive","v.","살아남다","Cacti survive in the desert with very little water."],
+["adapt","v.","적응하다","Polar bears adapt to cold weather with thick fur."],
+["predator","n.","포식자","A hawk is a predator that hunts mice."],
+["prey","n.","먹잇감","The frog caught its prey with its long tongue."],
+["migrate","v.","(철새 등이) 이동하다","Many birds migrate south in the fall."],
+["hibernate","v.","겨울잠을 자다","Bears hibernate through the winter."],
+["camouflage","n.","위장","The lizard's camouflage helps it hide on the tree."],
+["mammal","n.","포유류","A dolphin is a mammal, not a fish."],
+["reptile","n.","파충류","A snake is a reptile with dry, scaly skin."],
+["develop","v.","발달하다, 개발하다","Tadpoles develop into frogs."],
+["process","n.","과정","Making cheese is a slow process."],
+["material","n.","재료","Wood is a common building material."],
+["solid","n.","고체","Ice is a solid, but water is a liquid."],
+["liquid","n.","액체","Pour the liquid into a clear cup."],
+["magnet","n.","자석","A magnet can pick up small paper clips."],
+["experiment","n.","실험","Our experiment showed that warm water melts ice faster."],
+["conclusion","n.","결론","Write your conclusion after you look at the results."],
+["explain","v.","설명하다","Please explain how you solved the problem."],
+["discover","v.","발견하다","She hopes to discover a new kind of fossil."],
+["settle","v.","정착하다","Many families settle near rivers because the soil is rich."],
+["colony","n.","식민지","The colony grew quickly after more ships arrived."],
+["explorer","n.","탐험가","The explorer drew a map of the coast."],
+["trade","v.","거래하다, 교환하다","Farmers trade corn for tools at the market."],
+["government","n.","정부","The government builds roads and runs public schools."],
+["citizen","n.","시민","A citizen can vote after turning eighteen."],
+["border","n.","국경, 경계","The river forms the border between the two states."],
+["capital","n.","수도","Washington, D.C. is the capital of the United States."],
+["culture","n.","문화","Food is an important part of every culture."],
+["tradition","n.","전통","Our family tradition is baking pies on Thanksgiving."],
+["celebrate","v.","기념하다, 축하하다","We celebrate the new year with fireworks."],
+["festival","n.","축제","The town festival has music and games."],
+["freedom","n.","자유","Freedom of speech is an important right."],
+["event","n.","행사, 사건","The school held a special event for parents."],
+["century","n.","세기, 100년","A century is one hundred years."],
+["empire","n.","제국","The empire stretched across three continents."],
+["ruler","n.","통치자","The ruler of the kingdom lived in a castle."],
+["defend","v.","방어하다","The soldiers worked together to defend the fort."],
+["peaceful","adj.","평화로운","The lake was calm and peaceful at sunrise."],
+["brave","adj.","용감한","The brave firefighter saved the cat."],
+["courage","n.","용기","It took courage to speak first."],
+["honest","adj.","정직한","An honest person tells the truth."],
+["responsible","adj.","책임감 있는","She is responsible and feeds the dog every day."],
+["patient","adj.","인내심 있는","Be patient while the bread is baking."],
+["polite","adj.","예의 바른","It is polite to say thank you."],
+["cooperate","v.","협력하다","Our team must cooperate to finish the project."],
+["argue","v.","다투다, 주장하다","The two brothers argue about who goes first."],
+["apologize","v.","사과하다","He had to apologize for breaking the window."],
+["forgive","v.","용서하다","It is kind to forgive a friend who makes a mistake."],
+["encourage","v.","격려하다","Coaches encourage players to keep trying."],
+["anxious","adj.","불안한","I felt anxious before the big test."],
+["nervous","adj.","긴장한","She was nervous about singing alone."],
+["proud","adj.","자랑스러운","My parents were proud of my report card."],
+["embarrassed","adj.","창피한","He felt embarrassed when he tripped on stage."],
+["disappointed","adj.","실망한","We were disappointed when the game was canceled."],
+["furious","adj.","몹시 화가 난","The driver was furious about the traffic jam."],
+["delighted","adj.","아주 기뻐하는","She was delighted with her birthday gift."],
+["exhausted","adj.","녹초가 된","The hikers were exhausted after the long climb."],
+["confused","adj.","혼란스러운","I was confused by the directions."],
+["lonely","adj.","외로운","The new student felt lonely on the first day."],
+["estimate","v.","어림하다, 추정하다","Estimate the answer before you use a calculator."],
+["total","n.","합계","The total cost of the books is twelve dollars."],
+["equal","adj.","같은, 동등한","Cut the pizza into eight equal slices."],
+["fraction","n.","분수","One half is a fraction."],
+["average","n.","평균","The average of 2, 4, and 6 is four."],
+["pattern","n.","규칙, 무늬","Look for a pattern in the numbers."],
+["distance","n.","거리","The distance from home to school is two miles."],
+["length","n.","길이","Use a tape to find the length of the table."],
+["weigh","v.","무게가 나가다","The suitcase can weigh no more than fifty pounds."],
+["summary","n.","요약","Write a summary of the story in three sentences."],
+["character","n.","등장인물","The main character in the book is a young girl."],
+["setting","n.","(이야기의) 배경","The setting of the story is a small fishing village."],
+["plot","n.","줄거리","The plot becomes exciting in the last chapter."],
+["theme","n.","주제","Friendship is the theme of the story."],
+["author","n.","작가","The author wrote ten books about horses."],
+["fiction","n.","소설, 지어낸 이야기","A mystery novel is a type of fiction."],
+["biography","n.","전기","I read a biography of Harriet Tubman."],
+["fact","n.","사실","A fact can be proven to be true."],
+["opinion","n.","의견","In my opinion, summer is the best season."],
+["sequence","n.","순서","Put the pictures in sequence from first to last."],
+["cause","n.","원인","A broken pipe was the cause of the flood."],
+["effect","n.","결과, 영향","Sleep has a strong effect on your mood."],
+["infer","v.","추론하다","Use clues to infer how the character feels."],
+["detail","n.","세부 사항","Add one more detail to your drawing."],
+["support","v.","뒷받침하다","Use facts to support your opinion."],
+["paragraph","n.","단락","Each paragraph should have one main idea."],
+["audience","n.","청중, 관객","The audience clapped after the song."],
+["present","v.","발표하다","Each group will present its project on Friday."],
+["research","n.","조사, 연구","We did research on penguins at the library."],
+["source","n.","출처","Write down the source of every fact."],
+["adventure","n.","모험","The camping trip was a great adventure."],
+["destination","n.","목적지","Our final destination is Chicago."],
+["passenger","n.","승객","Every passenger must wear a seat belt."],
+["cargo","n.","화물","The ship carried cargo across the ocean."],
+["harbor","n.","항구","Boats were tied up in the harbor."],
+["voyage","n.","항해","The voyage across the sea lasted two months."],
+["compass","n.","나침반","A compass always points north."],
+["route","n.","경로","We took a different route to avoid traffic."],
+["tunnel","n.","터널","The train goes through a tunnel under the river."],
+["distant","adj.","먼","We could see distant mountains from the plane."],
+["narrow","adj.","좁은","The path was too narrow for two bikes."],
+["steep","adj.","가파른","The hill was too steep to ride up."],
+["smooth","adj.","매끄러운","The stone was smooth from the river water."],
+["rough","adj.","거친","The sea was rough during the storm."],
+["sturdy","adj.","튼튼한","A sturdy fence kept the horses in."],
+["flexible","adj.","잘 휘는, 유연한","A rubber band is flexible."],
+["transparent","adj.","투명한","Glass is transparent, so light passes through."],
+["scatter","v.","흩뿌리다","Farmers scatter seeds across the field."],
+["gather","v.","모이다, 모으다","The class will gather in the gym at nine."],
+["construct","v.","짓다, 건설하다","Workers construct the new bridge."],
+["repair","v.","수리하다","Dad will repair the broken bike."],
+["improve","v.","향상시키다","Practice every day to improve your reading."],
+["prefer","v.","더 좋아하다","I prefer apples to oranges."],
+["decide","v.","결정하다","We need to decide where to eat."],
+["attempt","v.","시도하다","He will attempt to break the school record."],
+["achieve","v.","이루다, 달성하다","She worked hard to achieve her goal."],
+["accomplish","v.","해내다","Together we can accomplish a lot."],
+["delicate","adj.","섬세한, 약한","A butterfly's wings are delicate."],
+["vivid","adj.","생생한","She gave a vivid description of the storm."],
+["essential","adj.","꼭 필요한","Water is essential for all living things."]
+];
+DATA.g5.sents = [
+["I think there are three birthday gifts on the table.","think, three, birthday의 th는 혀끝을 윗니와 아랫니 사이에 살짝 내밀고 바람만 내보내요."],
+["She sells seashells by the seashore.","s와 sh를 구분해요. sh는 입술을 둥글게 모아 '쉬' 소리를 내요."],
+["Could you please repeat the question?","Could you는 이어서 '쿠쥬'처럼 읽어요. question은 '퀘스천'에 가까워요."],
+["We went to the library to borrow a few books.","library는 첫 음절 LI에 강세. 가운데 r을 빼먹지 않아요."],
+["What are you going to do after school?","미국 사람들은 'Whaddaya gonna'처럼 이어서 말해요. 따라 해 보세요."],
+["The weather is warm, but the wind is cold.","weather의 th는 목이 울리는 소리(/ð/)예요. 목에 손을 대 보세요."],
+["Please give me a glass of very cold water.","very의 v는 윗니로 아랫입술을 살짝 물고 소리 내요. b와 달라요."],
+["My brother likes to play baseball on Saturdays.","Saturdays 끝의 -days는 '데이즈'. 복수형 s는 z 소리가 나요."],
+["The little lamb ran along the long road.","l은 혀끝을 윗잇몸에 대고, r은 혀를 말아 어디에도 닿지 않게 해요."],
+["Fresh fruit and vegetables are good for you.","f는 윗니로 아랫입술을 물고 바람을 내보내요. p와 달라요."],
+["He walked to the park and talked to his friend.","walked, talked 끝의 -ed는 '트' 소리예요. '워크트, 토크트'."],
+["She wanted to paint a picture of the sunset.","wanted처럼 t, d 뒤의 -ed는 '이드'로 한 음절이 더 늘어요."],
+["There are thirteen students in my reading group.","thirteen은 뒤(-TEEN)에 강세, thirty는 앞(THIR-ty)에 강세예요."],
+["I would like a cheese sandwich and an apple.","cheese의 끝 s는 z 소리. 'an apple'은 '어내플'처럼 이어요."],
+["The squirrel climbed up the tall tree quickly.","squirrel은 '스쿼럴'을 한 덩어리로. climbed의 b는 소리 나지 않아요."],
+["Can you spell the word knight for me?","knight의 k와 gh는 소리 나지 않고 '나이트'로만 읽어요."],
+["It was a rainy day, so we stayed inside.","day, stay의 ay는 '데이, 스테이'처럼 이중모음으로 끝까지 읽어요."],
+["My teacher showed us a map of the world.","world는 입술을 둥글게 하고 끝의 ld를 분명히 닫아 줘요."],
+["We need to leave early to catch the bus.","leave는 길게 '리~브', live는 짧게 '리브'. 길이로 구분해요."],
+["The doctor said I should drink more water.","미국식 영어에서 water의 t는 '워러'처럼 부드럽게 들려요."],
+["Please turn off the lights when you leave the room.","turn off는 '터너프'처럼 이어서 읽어요."],
+["The mountains are covered with snow in winter.","mountain의 -tain은 '은'처럼 짧게 읽어요."],
+["My grandmother makes the best chocolate cookies.","chocolate은 보통 2음절 'CHOK-lit'으로 읽어요."],
+["A strong wind blew the leaves across the yard.","strong은 s-t-r 세 소리를 한 호흡에 이어서 말해요."],
+["He thought about the problem for a long time.","thought의 gh는 소리 나지 않아요. th는 혀를 내밀어요."],
+["Birds sing early in the morning near my window.","morning에서 r을 살려요. '모닝'이 아니라 '모r닝'."],
+["The beautiful butterfly landed on a yellow flower.","beautiful은 'BYOO-ti-ful', flower는 한 음절처럼 '플라워'."],
+["Our class is going on a field trip next Tuesday.","Tuesday는 '튜즈데이'. field는 '필드'로 ie는 '이'."],
+["I usually walk to school with my best friend.","usually의 s는 '쥬' 소리(/ʒ/)예요. '유쥬얼리'처럼."],
+["Is there anything else you would like to ask?","anything의 th는 혀를 내밀어요. 'else you'는 '엘슈'처럼 이어요."],
+["The farmer planted corn in the spring.","planted는 -ed가 '이드'로 한 음절 늘어요. spring은 s-p-r 이어서 읽어요."],
+["A giraffe has a very long neck.","giraffe의 g는 '쥐'처럼 소리 나요(/dʒ/). 강세는 둘째 음절 -RAFFE."],
+["Please close the door quietly.","close(동사)는 끝이 z 소리 '클로즈'. quietly는 '콰이엇리'."],
+["My favorite subject is science.","favorite는 보통 'FAYV-rit' 2음절로 읽어요."],
+["The children are playing outside.","children의 ch는 '치', -ren은 '런'. 'CHIL-dren'."],
+["We saw a rainbow after the storm.","rainbow는 '레인보우'. 강세는 첫 음절 RAIN에 있어요."],
+["He is taller than his younger sister.","taller, younger처럼 -er 끝은 입을 너무 벌리지 않고 '러'로 짧게."],
+["I forgot my lunch at home today.","forgot은 둘째 음절에 강세, 'for-GOT'. 끝 t는 가볍게."],
+["The bus arrives at eight o'clock.","o'clock은 '어클락'. eight의 gh는 소리 나지 않아요."],
+["Please write your name at the top of the page.","write의 w는 소리 없고 '라이트'. page는 '페이쥐'."],
+["The ocean waves were big and loud.","ocean의 -cean은 '션'. 'OH-shun'으로 읽어요."],
+["She drew a picture of a green dragon.","green dragon의 gr, dr 소리를 r에 신경 써서 말해요."],
+["It is important to drink enough water.","important는 둘째 음절 -POR-에 강세예요."],
+["Can I borrow your pencil for a minute?","minute은 '미닛'. borrow는 '바로우', 끝을 올리지 않아요."],
+["The baby giggled and clapped her hands.","giggled는 '기글드'. 앞의 g는 단단하게 '그' 소리."],
+["We had pizza for dinner on Friday.","pizza는 '핏자'로 읽어요. Friday는 '프라이데이'로 fr에 신경 써요."],
+["My dog loves to chase the ball.","chase는 '체이스', ch는 '치' 소리예요. 'loves'의 v도 윗니로."],
+["The sky turned dark before the rain.","sky에서 k는 된소리처럼 '스카이'. before는 둘째 음절 강세."],
+["He climbed the ladder to fix the roof.","ladder는 '래러'처럼 부드럽게. fix는 '픽스', 끝 x는 ks."],
+["There is a bird's nest in the old oak tree.","bird's는 '버즈', nest는 '네스트'. st 끝을 분명히."],
+["We should always wash our hands before eating.","wash는 '워시', 끝 sh는 '쉬' 소리. 입술을 둥글게."],
+["The moon looks bright tonight.","tonight는 둘째 음절 -NIGHT에 강세. bright의 gh는 소리 없어요."],
+["I need to finish my homework before dinner.","homework는 앞 HOME에 강세. 'finish'는 'FIN-ish'."],
+["She carried a heavy backpack to school.","heavy는 '헤비'. ea가 '에'로 소리 나요. 'backpack'은 첫 음절 강세."],
+["The students lined up at the door.","lined up은 '라인덥'처럼 이어서 읽어요."],
+["Spring is my favorite time of year.","spring의 s-p-r를 한 호흡으로. 'time of'는 '타임 어브'로 부드럽게."],
+["The kitten curled up in the warm blanket.","curled의 -ed는 d 소리. kitten의 tt는 '키은'처럼 짧게."],
+["He kicked the ball over the fence.","kicked의 -ed는 '트' 소리 '킥트'. fence는 '펜스'."],
+["Would you like to join our team?","Would you는 '우쥬'처럼 이어요. join의 oi는 '조인'."],
+["The library closes at five o'clock.","closes는 끝이 '이즈'처럼 늘어나요(/ɪz/). 'o'clock'은 '어클락'."],
+["I put my shoes by the front door.","shoes의 sh는 '슈'. 끝 s는 z 소리. door는 입술을 둥글게 '도어'."],
+["The soup was too hot to eat.","soup는 '숩', 끝의 p를 입술로 닫아요. 'too hot'은 이어서."],
+["She whispered a secret to her friend.","whispered는 wh에서 w 소리만 내요. 끝 -ed는 d 소리 '위스퍼드'."],
+["We built a snowman in the front yard.","built의 u는 소리 나지 않아 '빌트'. snowman은 '스노우맨'."],
+["The cat jumped onto the kitchen counter.","counter는 '카운터'. jumped는 '점프트'. 끝이 p+t."],
+["My grandfather tells funny stories.","grandfather의 d는 약하게. 'grand-fa-ther'에서 th는 /ð/ 소리."],
+["The class voted on the new pet.","voted는 '보티드'로 3음절처럼. v는 윗니로 아랫입술을."],
+["Please speak slowly and clearly.","slowly, clearly의 -ly는 '리'. l 소리를 두 번 살려요."],
+["We watched a movie about space.","watched의 -ed는 '트', 'watcht'. movie는 '무비'."],
+["The river flows past our school.","river는 '리버', 첫 r을 살려요. flows는 끝이 z 소리."],
+["He dropped his keys down the drain.","dropped는 '드랍트'. drain은 d-r 소리를 이어서 '드레인'."],
+["I'm saving my money to buy a bike.","buy는 '바이', b는 입술을 붙였다 떼요. 'saving'은 '세이빙'."],
+["The garden is full of colorful flowers.","colorful은 '컬러풀'. 강세는 첫 음절이에요."],
+["Our teacher read us a funny poem.","read(과거)는 '레드'. 현재형은 '리드'. 이 문장은 과거로 '레드'."],
+["The path through the forest was muddy.","forest는 '포리스트'. 강세는 첫 음절, 가운데 모음은 약하게."],
+["She hummed a tune while she worked.","hummed는 '험드', 끝 -ed는 d 소리. tune은 '튠'."],
+["The package arrived on Wednesday.","Wednesday는 '웬즈데이'. 가운데 d는 소리 나지 않아요."],
+["It's cold outside, so wear a warm coat.","wear는 '웨어', warm은 '웜'. w 소리에서 입술을 둥글게."],
+["I can't find my left shoe anywhere.","can't는 '캔트'를 길게 '캐앤ㅌ'처럼. can과 길이로 구분해요."],
+["Please keep your voice down in the library.","voice의 v, library의 r을 살려요. 'keep'은 길게 '키~프'."],
+["The teacher handed out new books today.","handed out은 '핸디다웃'처럼 이어서 읽어요."],
+["A tiny seed can grow into a huge tree.","seed는 길게 '씨~드'. huge의 h는 숨을 내쉬며 '휴지'."],
+["My friend lives across the street.","across는 첫 음절 약하게 '어크로스'. street는 s-t-r 이어서."],
+["The frog jumped into the pond with a splash.","splash는 s-p-l를 한 번에 '스플래시'. frog는 'fr'."],
+["We shared our snacks at recess.","shared의 sh는 '쉬', -ed는 d. recess는 '리세스'."],
+["The doctor listened to my heart.","listen의 t는 소리 나지 않아 '리슨'. heart는 '하트', h는 숨을 내쉬며."],
+["He fell asleep during the movie.","asleep은 둘째 음절 -SLEEP에 강세. fell과 feel을 구분해요."],
+["I finally finished reading the whole book.","finally는 '파이널리'. whole의 w는 소리 나지 않아 '홀'."],
+["The wind is strong enough to move the swings.","enough는 '이너프', gh가 f 소리. swings는 s-w를 이어서."],
+["Please be careful with the hot stove.","careful은 '케어풀'. stove는 '스토브', v는 윗니로."]
+];
+DATA.g5.prompts = [
+"Describe your favorite animal. Write 4 or 5 sentences: what it looks like, where it lives, and why you like it.",
+"Write about a time you helped someone. What happened, and how did you feel afterward?",
+"If you could invent one thing to make school better, what would it be? Explain how it works.",
+"Describe your perfect weekend. What would you do from morning to night?",
+"Who is someone you admire? Tell what they do and why you look up to them.",
+"Write about your favorite food. Describe how it looks, smells, and tastes.",
+"If you could visit any place in the world, where would you go? Give two reasons.",
+"Describe a time you felt nervous. What happened, and how did it end?",
+"What is your favorite season? Write about what you do in that season.",
+"Tell about a game you like to play. Explain the rules so a friend could play it.",
+"If you had a pet dragon, what would you do together? Write a short story.",
+"Write about a place near your home that you like. Describe what you see and hear there.",
+"What is one thing you are good at? Explain how you learned it.",
+"Describe your best friend. What do you like to do together?",
+"Write a letter to a character from your favorite book. What would you say to them?",
+"What would you do if you found a wallet on the sidewalk? Explain your choice.",
+"Describe your morning routine from waking up to arriving at school.",
+"Write about a time you tried something new. Was it easy or hard? How did you feel?",
+"If you could have any superpower, what would it be? Tell how you would use it.",
+"Write about a family tradition. What do you do, and why is it special?",
+"Describe a rainy day. What can you see, hear, and do?",
+"What is something you want to learn this year? Explain why and how you will learn it.",
+"Write about your favorite teacher or coach. What makes them a good teacher?",
+"Describe a toy, game, or gadget you could not live without. Tell why.",
+"If you were the principal for a day, what three changes would you make?",
+"Write about a time you worked with a team. What was your job, and how did it go?",
+"Describe the funniest thing that ever happened to you. Add details so the reader can picture it.",
+"What do you like to do outside? Describe your favorite outdoor activity.",
+"Write about a time you were proud of yourself. What did you do?",
+"Imagine you are an animal for a day. Which animal would you be, and what would you do?"
+];
+
+DATA.g5.passages = [
+{t:"The Monarch's Long Journey",x:"Every fall, millions of monarch butterflies leave Canada and the northern United States. They fly south to the warm forests of Mexico. The journey can be more than 2,000 miles long. A monarch weighs less than a paperclip, yet it can fly more than 50 miles in one day. Monarchs cannot survive freezing weather, so they must travel to find shelter. In the spring, the butterflies that lived through the winter lay eggs on milkweed plants and then die. Their children and grandchildren fly north again. Scientists tag the wings with tiny stickers to observe where each butterfly goes.",g:[["shelter","피난처"],["survive","살아남다"],["milkweed","박주가리 (애벌레의 먹이 식물)"],["tag","표식을 붙이다"]],q:[["What is the main idea of the passage?",["Monarch butterflies fly a very long way to escape the cold.","Monarch butterflies eat only milkweed.","Mexico has more butterflies than Canada.","Butterflies are heavier than paperclips."],"겨울 추위를 피해 멕시코까지 먼 거리를 이동한다는 것이 중심이에요."],["Why must monarchs travel south for the winter?",["They cannot survive freezing weather.","Scientists ask them to.","They are too heavy to stay.","They want to lay eggs on milkweed."],"본문에 'cannot survive freezing weather'가 나와요."],["In the passage, the word \"observe\" means:",["watch carefully","touch gently","make a loud noise","carry far away"],"observe = 주의 깊게 지켜보다."]]},
+{t:"Why Bridges Don't Fall Down",x:"A bridge has to hold up its own weight and the weight of everything that crosses it. Engineers use shapes to make bridges strong. A triangle is one of the strongest shapes because it does not easily change form when pushed. That is why many bridges have triangles in their metal frames. Another kind, the arch bridge, curves upward. The curve moves the weight outward to the supports at each end. Engineers also leave small gaps in bridges. On hot days metal expands, and the gaps give it room to grow. Without them, the bridge could bend or crack.",g:[["engineer","기술자, 공학자"],["expand","팽창하다, 늘어나다"],["support","지지대, 받침"],["arch","아치 (둥글게 휜 구조)"]],q:[["Why do many bridges use triangles?",["Triangles are strong and keep their form.","Triangles are easy to paint.","Triangles make bridges lighter than air.","Triangles keep metal cool."],"삼각형은 눌려도 모양이 잘 변하지 않아요."],["What is the purpose of the small gaps in a bridge?",["They let hot metal expand without cracking.","They let cars go faster.","They hold the arch up.","They keep birds away."],"더운 날 금속이 늘어날 공간을 만들어 줘요."],["Which sentence best describes an arch bridge?",["Its curve moves weight to the supports at each end.","It has no supports.","It is made only of triangles.","It is flat and made of wood."],"아치의 곡선이 무게를 양쪽 끝 지지대로 보내요."]]},
+{t:"How Bees Make Honey",x:"Worker bees fly from flower to flower and drink a sweet liquid called nectar. They store the nectar in a special stomach. Back at the hive, they pass the nectar to other bees. These bees chew it and spread it into wax cells. Then they fan their wings over the cells. The fanning helps extra water leave the nectar, so it becomes thick and sticky. When the honey is ready, the bees cover the cell with a wax cap. One bee makes only about one-twelfth of a teaspoon of honey in its whole life.",g:[["nectar","꿀(꽃에서 나는 달콤한 액체)"],["hive","벌집, 벌통"],["wax","밀랍"],["fan","부채질하다, 바람을 일으키다"]],q:[["What do worker bees collect from flowers?",["Nectar","Wax","Honey","Water"],"본문에 nectar라고 나와요."],["Why do bees fan their wings over the cells?",["To help water leave the nectar","To keep the hive warm","To scare away other insects","To make the wax soft"],"날갯짓으로 물기가 날아가 꿀이 걸쭉해져요."],["What does the last sentence show?",["Making honey takes the work of many bees.","One bee can fill a whole jar.","Bees do not like honey.","Honey is made in one day."],"한 마리가 평생 만드는 꿀이 아주 적다는 뜻이에요."]]},
+{t:"The Water Cycle",x:"The water on Earth is always moving. The sun heats water in oceans, lakes, and rivers. Some of the water turns into a gas called water vapor and rises into the air. This is called evaporation. High in the sky, the air is cold. The vapor cools and turns back into tiny drops of water. Many drops together form clouds. When the drops get heavy, they fall as rain, snow, or hail. This is called precipitation. The water runs into rivers and oceans, and the cycle begins again.",g:[["vapor","수증기"],["evaporation","증발"],["precipitation","강수 (비·눈이 내림)"],["hail","우박"]],q:[["What causes evaporation?",["The sun heats the water.","Clouds get heavy.","Rivers run downhill.","The air gets cold."],"태양이 물을 데우면 수증기가 돼요."],["What happens when water vapor cools in the sky?",["It turns into tiny drops that form clouds.","It becomes a river.","It disappears forever.","It turns into a gas."],"식으면 작은 물방울이 되어 구름을 이뤄요."],["What does \"precipitation\" mean in this passage?",["Water falling from clouds","Water rising into the air","Water running in a river","Water frozen in a lake"],"precipitation은 비, 눈, 우박처럼 내리는 물이에요."]]},
+{t:"Rosa Parks Says No",x:"In 1955, buses in Montgomery, Alabama, had a rule. Black passengers had to give their seats to white passengers if the bus was full. On December 1, Rosa Parks was sitting on a bus when the driver told her to stand. She said no, and she was arrested. Black citizens in Montgomery then refused to ride the city buses. This protest, called a boycott, lasted over a year. Many people walked miles to work. In the end, the Supreme Court ruled that the bus rule was unfair, and it was changed.",g:[["arrested","체포되다"],["boycott","불매·보이콧 (항의로 이용을 거부함)"],["protest","항의, 시위"],["unfair","불공정한"]],q:[["What did Rosa Parks do on December 1, 1955?",["She refused to give up her seat.","She drove a bus.","She walked to work.","She spoke to the Supreme Court."],"운전사의 요구를 거부하고 자리에서 일어나지 않았어요."],["What is a boycott, as used in the passage?",["Refusing to use something to protest","Driving a bus fast","Building a new road","Asking for a ride"],"항의의 뜻으로 이용을 거부하는 것이에요."],["What was the result of the boycott?",["The unfair bus rule was changed.","All buses stopped running forever.","Rosa Parks became a bus driver.","The city built more buses."],"결국 대법원이 불공정하다고 판결하고 규칙이 바뀌었어요."]]},
+{t:"A Volcano Wakes Up",x:"Deep under the ground, rock gets so hot that it melts. The melted rock is called magma. Because magma is lighter than the solid rock around it, it slowly rises. Gas is trapped inside the magma, and pressure builds, like in a shaken soda bottle. When the pressure gets too high, the volcano erupts. Magma that reaches the surface is called lava. Scientists use special tools to measure small earthquakes and gas near a volcano. These signs can warn people to leave before an eruption.",g:[["magma","마그마"],["pressure","압력"],["erupt","분출하다, 폭발하다"],["lava","용암"]],q:[["What is magma?",["Melted rock under the ground","Ash in the air","A kind of gas","Cold rock on the surface"],"땅속에서 녹은 암석이 마그마예요."],["Why does the writer compare a volcano to a shaken soda bottle?",["Both can burst when pressure gets too high.","Both are cold.","Both are made of rock.","Both are very quiet."],"압력이 너무 높아지면 터진다는 점이 닮았어요."],["How can scientists help people stay safe?",["They watch for signs that warn of an eruption.","They stop the lava with walls.","They cool the magma with water.","They move the volcano."],"작은 지진과 가스 변화를 보고 미리 경고해요."]]},
+{t:"The Lost Library Book",x:"Mia could not find her library book anywhere. It was due on Friday, and it was already Thursday. She looked under her bed and in her backpack. At last, she remembered leaving it on the bus. Her stomach felt tight. She thought about saying she returned it, but that would be a lie. On Friday, Mia told the librarian the truth. Mrs. Lee smiled and said, \"Thank you for being honest. Let's call the bus company together.\" By noon, the book was found. Mia felt like a heavy backpack had lifted from her shoulders.",g:[["due","반납 기한인"],["librarian","도서관 사서"],["lie","거짓말"],["honest","정직한"]],q:[["What is the theme of the story?",["Telling the truth is the right choice.","Buses are always late.","Libraries are quiet places.","Never lend your books."],"거짓말 대신 솔직히 말한 것이 이야기의 주제예요."],["Why did Mia's stomach feel tight?",["She was worried about the lost book.","She was hungry.","She ate too fast.","She had a cold."],"책을 잃어버려 걱정했기 때문이에요."],["What does the last sentence mean?",["Mia felt relieved after telling the truth.","Mia's backpack was too heavy.","Mia lost her backpack.","Mia was angry at the librarian."],"걱정이 사라져 마음이 가벼워졌다는 비유예요."]]},
+{t:"The Octopus Escape Artist",x:"An octopus has no bones in its body. Its soft body can squeeze through any space larger than its hard beak. That makes octopuses great escape artists. Some octopuses in aquariums have slipped out of tanks at night and returned later. An octopus also has three hearts. When it is in danger, it can change color to match rocks or sand. This camouflage helps it hide from sharks. If a predator still gets close, the octopus can squirt a cloud of dark ink and swim away.",g:[["beak","부리"],["aquarium","수족관"],["camouflage","위장"],["squirt","뿜어내다"]],q:[["Why can an octopus squeeze through small spaces?",["It has no bones in its body.","It has three hearts.","It can change color.","It has a long tail."],"뼈가 없어서 좁은 틈도 통과해요."],["How does camouflage help an octopus?",["It helps the octopus hide from predators.","It helps the octopus find food.","It makes the octopus warm.","It makes the octopus faster."],"색을 바꿔 바위나 모래에 섞여 숨어요."],["What can an octopus do if a predator gets close?",["Squirt ink and swim away","Grow a hard shell","Dig a deep hole","Call other octopuses"],"먹물을 뿜고 도망쳐요."]]},
+{t:"The First Flight",x:"Orville and Wilbur Wright ran a bicycle shop in Ohio, but they dreamed of flying. They built small gliders and tested them on the windy beaches of Kitty Hawk, North Carolina. Steady winds helped the planes lift off, and the soft sand made landings safer. On December 17, 1903, Orville climbed onto their engine-powered airplane. It flew for about twelve seconds and traveled 120 feet. That was a short flight, but it was the first time a plane carried a person using its own power. Within a few years, airplanes could fly for miles.",g:[["glider","글라이더 (엔진 없는 비행기)"],["steady","꾸준한"],["lift off","떠오르다"],["engine","엔진"]],q:[["Why did the brothers test their planes at Kitty Hawk?",["It had steady winds and soft sand.","It had tall buildings.","It was near their shop.","It had many bicycles."],"꾸준한 바람과 부드러운 모래가 이유예요."],["How long was the first flight?",["About twelve seconds","About twelve minutes","About twelve hours","About twelve days"],"약 12초 동안 날았어요."],["What is the main idea?",["The Wright brothers made the first powered airplane flight.","Bicycles are better than planes.","Gliders are dangerous.","Ohio is a windy state."],"라이트 형제가 최초의 동력 비행에 성공한 이야기예요."]]},
+{t:"Desert Survivors",x:"Deserts get very little rain, yet many living things survive there. A camel stores fat in its hump, which gives it energy when food is hard to find. A cactus has thick stems that hold water, and its sharp spines protect it from hungry animals. The kangaroo rat almost never drinks water at all. It gets the water it needs from the seeds it eats. Many desert animals sleep in cool burrows during the day and come out at night. Each living thing has found a way to adapt to the heat and dryness.",g:[["hump","(낙타의) 혹"],["spine","가시"],["burrow","굴"],["adapt","적응하다"]],q:[["What does a camel store in its hump?",["Fat for energy","Water","Sand","Seeds"],"혹에는 지방이 있어 에너지를 줘요."],["How does the kangaroo rat get water?",["From the seeds it eats","From rivers","From cactus stems","From rain"],"먹는 씨앗에서 물을 얻어요."],["What does \"adapt\" mean in the last sentence?",["Change to fit a new place","Run away quickly","Grow very tall","Sleep all day"],"adapt = 환경에 맞게 변하다."]]},
+{t:"Sound Is a Vibration",x:"When you pluck a guitar string, you can see it shake back and forth. This shaking is called a vibration. Vibrations push the air around them, and the push travels as a sound wave. When the wave reaches your ear, you hear a sound. A bigger vibration makes a louder sound. A faster vibration makes a higher sound. Sound needs something to travel through, such as air, water, or metal. In outer space there is almost no air, so sound cannot travel there. Astronauts must use radios to talk to each other.",g:[["pluck","(줄을) 튕기다"],["vibration","진동"],["wave","파동"],["outer space","우주 공간"]],q:[["What makes a louder sound?",["A bigger vibration","A slower vibration","A colder room","A shorter string"],"진동이 클수록 소리가 커져요."],["Why can't sound travel in outer space?",["There is almost no air.","It is too bright.","It is too small.","There is too much water."],"소리는 전달해 줄 물질이 필요해요."],["Why do astronauts use radios?",["Sound does not travel through space.","Radios are cheaper.","They like music.","Their ears are broken."],"우주에는 공기가 거의 없기 때문이에요."]]},
+{t:"A Day at the Farmers Market",x:"Every Saturday morning, farmers bring fresh food to the town market. Stands are filled with tomatoes, corn, apples, and bread. Shoppers can talk with the farmers and ask how the food was grown. Many farmers sell only what is ready to pick that week, so the food changes with the seasons. Because the food travels a short distance, it often tastes fresher. When people buy from local farmers, the money stays in the community. Many families like to go to the market together to taste and learn.",g:[["stand","판매대, 가판"],["season","계절"],["fresh","신선한"],["local","지역의"]],q:[["Why does the food at the market change during the year?",["Farmers sell what is ready that week.","The market is closed in winter.","Shoppers choose it.","The town decides."],"제철에 수확한 것만 팔아서 계절마다 달라요."],["Why might the food taste fresher?",["It travels a short distance.","It is frozen.","It is cooked first.","It is old."],"짧은 거리를 이동해서 더 신선해요."],["What is the main idea?",["Farmers markets give fresh food and help the community.","Corn is the best food.","Shopping is boring.","Farmers are tired."],"신선한 음식과 지역 사회에 도움이 된다는 내용이에요."]]},
+{t:"The Great Wall of China",x:"The Great Wall of China is not one wall. It is a long chain of walls built over many centuries by different rulers. Together, the walls stretch more than 13,000 miles. Workers built them from stone, brick, and packed earth. The main goal was to protect the empire from invaders. Tall watchtowers were built along the wall. When guards saw enemies, they sent smoke signals from tower to tower, and the news traveled quickly. Today, millions of visitors walk along parts of the wall each year.",g:[["chain","이어진 줄, 연결"],["invader","침략자"],["watchtower","망루"],["signal","신호"]],q:[["What was the main goal of the Great Wall?",["To protect the empire from invaders","To hold water","To make a road for cars","To mark farm land"],"침략자로부터 제국을 지키는 것이 목적이었어요."],["How did guards pass news along the wall?",["With smoke signals from tower to tower","With airplanes","With letters","With phones"],"망루에서 망루로 연기 신호를 보냈어요."],["What does the first paragraph tell you?",["The Great Wall is many walls built over a long time.","The wall was built in one year.","The wall is only 13 miles long.","One ruler built the whole wall."],"여러 통치자가 오랜 세월에 걸쳐 지은 벽들의 연결이에요."]]},
+{t:"Why Leaves Change Color",x:"In spring and summer, leaves are green because they contain a lot of chlorophyll. Chlorophyll helps the plant use sunlight to make food. In fall, the days get shorter and cooler. Trees stop making chlorophyll, so the green color fades away. Then other colors that were hiding in the leaf can be seen. Yellow and orange were there all along. Some trees also make new red colors in the fall. When the leaves have lost most of their food-making power, they drop to the ground.",g:[["chlorophyll","엽록소"],["fade","점점 옅어지다"],["contain","~이 들어 있다"],["hiding","숨어 있는"]],q:[["Why are leaves green in summer?",["They contain a lot of chlorophyll.","They are very cold.","They are wet.","They are small."],"엽록소가 많아서 초록색이에요."],["What happens to chlorophyll in the fall?",["Trees stop making it.","Trees make more of it.","It turns red.","It becomes water."],"가을에는 새로 만들지 않아 초록이 옅어져요."],["Why can we see yellow and orange in the fall?",["The colors were in the leaf all along.","Rain paints the leaves.","Bugs color them.","The wind changes them."],"원래 있던 노랑·주황이 드러나는 거예요."]]},
+{t:"Jackie Robinson Breaks the Barrier",x:"For many years, Black players were not allowed to play in the major leagues of baseball. In 1947, Jackie Robinson changed that when he joined the Brooklyn Dodgers. He faced angry shouts from some fans, and some players treated him unfairly. Robinson promised himself that he would stay calm and let his playing speak for him. He was an excellent hitter and a fast runner. That year he was named the best new player in the league. Today every team in baseball has retired his number, 42, to honor him.",g:[["major leagues","메이저리그"],["unfairly","불공정하게"],["excellent","훌륭한"],["retire","(번호를) 영구 결번하다"]],q:[["What did Jackie Robinson do in 1947?",["He became the first Black player in the major leagues.","He retired from baseball.","He started a new team.","He became a coach."],"당시 메이저리그에 들어간 최초의 흑인 선수예요."],["How did Robinson respond to unfair treatment?",["He stayed calm and played well.","He quit the team.","He shouted back at fans.","He stopped practicing."],"침착하게 실력으로 보여 주기로 했어요."],["What does it mean that his number was retired?",["No player will wear 42 again.","He stopped playing.","The team sold the number.","It was lost."],"모든 팀이 42번을 더 이상 쓰지 않아요."]]},
+{t:"Sea Turtles Head Home",x:"A female sea turtle spends most of her life in the ocean. But when she is ready to lay eggs, she swims back to the beach where she was born. She digs a hole in the sand and lays about one hundred eggs. About two months later, the baby turtles hatch at night. They follow the light of the moon on the water to find the sea. Bright lights from houses and streets can confuse them, and they crawl the wrong way. Turning off lights near beaches helps the babies reach the ocean safely.",g:[["hatch","(알에서) 부화하다"],["confuse","혼란스럽게 하다"],["female","암컷"],["safely","안전하게"]],q:[["Where does a female sea turtle lay her eggs?",["On the beach where she was born","At the bottom of the sea","In a river","On a rock"],"자신이 태어난 해변으로 돌아와요."],["How do baby turtles find the ocean?",["They follow the moonlight on the water.","They follow their mother.","They smell the salt.","They listen to waves."],"달빛에 반짝이는 바다를 따라가요."],["How can people help the babies?",["Turn off bright lights near the beach","Build more roads","Feed the turtles","Move the eggs"],"해변 근처 불빛을 끄면 도움이 돼요."]]},
+{t:"Make Your Own Compass",x:"You can make a simple compass at home. First, rub a sewing needle against a magnet about fifty times. Rub in one direction only. Next, push the needle through a small piece of cork. Then place the cork in a bowl of water. The cork will float, and the needle will slowly turn until it points north and south. This happens because the Earth acts like a giant magnet. Your needle has become a little magnet too, and it lines up with the Earth's magnetic field.",g:[["needle","바늘"],["cork","코르크"],["float","물에 뜨다"],["magnetic field","자기장"]],q:[["What should you do first?",["Rub the needle against a magnet","Fill the bowl with water","Cut the cork","Find north"],"먼저 바늘을 자석에 문질러요."],["Why does the needle turn north and south?",["Earth acts like a giant magnet.","The water is cold.","The cork is heavy.","The bowl is round."],"지구가 큰 자석처럼 작용하기 때문이에요."],["Why must you rub the needle in one direction only?",["It helps the needle become magnetic.","It makes the needle shiny.","It keeps the needle sharp.","It makes the needle float."],"한 방향으로 문질러야 바늘이 자석이 돼요."]]},
+{t:"The Pony Express",x:"In 1860, there were no phones or email. People who wanted to send a letter from Missouri to California had to wait weeks. The Pony Express changed that. Riders on fast horses carried mail across about 1,900 miles in around ten days. Stations were built every ten to fifteen miles. At each station, the rider switched to a fresh horse and kept going. The job was tough and dangerous, and the riders were often young. After about eighteen months, the telegraph made the Pony Express unnecessary, and the service ended.",g:[["mail","우편"],["station","중간 기지, 역"],["telegraph","전신 (전기 신호로 보내는 통신)"],["unnecessary","필요 없는"]],q:[["Why did riders stop at stations?",["To switch to a fresh horse","To read the mail","To sleep for a day","To buy food"],"지친 말을 새 말로 바꿔 탔어요."],["Why did the Pony Express end?",["The telegraph could send messages faster.","Horses got tired.","People stopped writing letters.","The mail was lost."],"전신이 더 빠른 통신 수단이 되었어요."],["Which word best describes the riders' job?",["Difficult","Boring","Easy","Quiet"],"tough and dangerous = 힘들고 위험한."]]},
+{t:"Plant Parts and Their Jobs",x:"Every part of a plant has an important job. The roots grow into the soil. They take in water and minerals, and they hold the plant in place. The stem holds the plant up and carries water from the roots to the leaves. The leaves use sunlight, water, and air to make food for the plant. This process is called photosynthesis. Flowers make seeds, which can grow into new plants. When all the parts work together, the plant can grow tall and healthy.",g:[["mineral","무기질, 광물"],["photosynthesis","광합성"],["stem","줄기"],["seed","씨앗"]],q:[["What is the job of the roots?",["Take in water and hold the plant in place","Make seeds","Make food from sunlight","Hold the flowers"],"뿌리는 물을 흡수하고 식물을 고정해요."],["Where does a plant make its food?",["In the leaves","In the roots","In the seeds","In the soil"],"잎에서 광합성으로 양분을 만들어요."],["What is the main idea?",["Each plant part has a job that helps the plant grow.","Only leaves are important.","Flowers are the biggest part.","Roots are above the ground."],"각 부분이 맡은 일이 있다는 것이 중심 내용이에요."]]},
+{t:"The New Kid",x:"On his first day at a new school, Kai stood at the lunchroom door holding his tray. Everyone seemed to know where to sit. His hands felt sweaty, and he wished he could disappear. Then a girl with a red backpack waved at him. \"There's an empty seat here,\" she said. \"I'm Jada. We have a lot of rules, but I'll tell you the secret ones.\" Kai smiled for the first time all day. By the end of lunch, he had two new friends and a plan for the weekend.",g:[["tray","식판"],["sweaty","땀이 나는"],["disappear","사라지다"],["secret","비밀의"]],q:[["How did Kai feel at the lunchroom door?",["Nervous and alone","Angry and loud","Proud and excited","Sleepy and bored"],"손에 땀이 나고 사라지고 싶었어요. 긴장하고 외로웠던 거예요."],["What did Jada do?",["She invited Kai to sit with her.","She told Kai to leave.","She gave Kai her lunch.","She walked away."],"빈자리가 있다고 불러 줬어요."],["What is the theme of the story?",["A small act of kindness can change someone's day.","New schools are scary.","Lunch is the best time.","Rules are important."],"작은 친절이 하루를 바꿔 준다는 주제예요."]]},
+{t:"The Moon's Phases",x:"The Moon does not make its own light. It shines because it reflects light from the Sun. Half of the Moon is always lit by the Sun, but we cannot always see the whole lit half from Earth. The Moon travels around the Earth about once every 29 days. As it moves, we see different amounts of its bright side. When we see none of it, it is called a new moon. When we see the whole bright side, it is a full moon. These changing shapes are called the phases of the Moon.",g:[["reflect","반사하다"],["lit","빛을 받은"],["phase","(달의) 위상"],["orbit","궤도를 돌다"]],q:[["Why does the Moon shine?",["It reflects sunlight.","It makes its own light.","It is hot.","It is close to Earth."],"태양빛을 반사해서 빛나요."],["What do we see during a full moon?",["The whole bright side","None of the Moon","Half of the Earth","The dark side only"],"밝은 면 전체가 보이는 때가 보름달이에요."],["What causes the phases of the Moon?",["The Moon moves around Earth, so we see different amounts of its bright side.","Clouds cover the Moon.","The Sun turns off.","The Moon shrinks."],"달이 지구를 돌며 보이는 밝은 면이 달라져요."]]},
+{t:"Spider Silk",x:"A spider makes silk inside its body and pushes it out through small tubes called spinnerets. Spider silk is very thin, but it is also very strong. Some kinds are stronger than steel of the same thickness. Spiders use silk for many things. They build webs to catch insects, wrap their eggs in it, and even use a thread as a safety line when they drop from a high place. Not all the threads in a web are sticky. Spiders walk on the dry threads, so they do not get stuck in their own traps.",g:[["silk","거미줄 실"],["spinneret","실젖 (거미가 실을 뽑는 기관)"],["thread","실"],["trap","덫"]],q:[["What do spiders use to push silk out of their bodies?",["Spinnerets","Claws","Legs","Eyes"],"실젖(spinneret)이라는 작은 관으로 내보내요."],["Why don't spiders get stuck in their own webs?",["They walk on the dry threads.","They are too light.","They cover themselves in water.","They never touch the web."],"끈적이지 않는 실로만 걸어 다녀요."],["What is one thing the passage says about spider silk?",["It can be stronger than steel of the same thickness.","It is thick and heavy.","It is only used for webs.","It melts in the sun."],"같은 굵기의 강철보다 강한 종류도 있어요."]]},
+{t:"The Statue of Liberty",x:"The Statue of Liberty stands on an island in New York Harbor. It was a gift from the people of France to the United States. It was finished in 1886 and shipped across the ocean in many pieces. The statue is made of thin sheets of copper. Copper is a reddish-brown metal, so the statue looked like a new penny at first. After about thirty years, the copper reacted with air and rain and turned green. The torch in the statue's hand stands for freedom, and the statue welcomed many immigrants arriving by ship.",g:[["harbor","항구"],["copper","구리"],["react","반응하다"],["immigrant","이민자"]],q:[["Who gave the Statue of Liberty to the United States?",["The people of France","The people of Spain","The people of Canada","The people of Mexico"],"프랑스 국민의 선물이에요."],["Why did the statue turn green?",["The copper reacted with air and rain.","Someone painted it.","Moss grew on it.","The sun burned it."],"구리가 공기와 비에 반응해서 초록이 됐어요."],["What does the torch stand for?",["Freedom","Fire","Winter","Travel"],"횃불은 자유를 상징해요."]]},
+{t:"Saving Energy at Home",x:"Homes use energy for lights, heat, and machines. Using less energy saves money and helps the environment. There are many easy ways to save. Turn off the lights when you leave a room. Unplug chargers when they are not in use, because some still use a small amount of power. Switch to LED bulbs, which use much less energy than old bulbs. In winter, keep doors and windows closed so the warm air stays inside. If everyone in a community saves a little, the total savings can be large.",g:[["environment","환경"],["charger","충전기"],["bulb","전구"],["savings","절약된 양"]],q:[["What is the main idea?",["Small changes at home can save energy.","Bulbs are expensive.","Winter is cold.","Chargers are dangerous."],"집에서 작은 습관으로 에너지를 아낄 수 있다는 내용이에요."],["Why should you unplug chargers?",["Some use power even when not in use.","They get lost.","They get wet.","They make noise."],"안 쓸 때도 전기를 조금 쓰기 때문이에요."],["What does the last sentence suggest?",["Many small savings add up to a big difference.","One person can fix everything.","Energy cannot be saved.","Communities are too big."],"조금씩 모이면 총량이 크다는 뜻이에요."]]},
+{t:"Cheetah: Built for Speed",x:"The cheetah is the fastest land animal. In a short sprint, it can run about 60 miles per hour, faster than cars drive in many towns. Its body is built for speed. It has long, thin legs, a small head, and a flexible spine that stretches as it runs. Its long tail works like a rudder and helps it turn without falling. But the cheetah can only keep up this speed for a short time. After a chase, it needs to rest to catch its breath. Cheetahs are now rare, and people are working to protect them.",g:[["sprint","전력 질주"],["spine","척추"],["rudder","(배의) 키"],["flexible","유연한"]],q:[["What helps a cheetah turn quickly without falling?",["Its long tail","Its small ears","Its short legs","Its big paws"],"긴 꼬리가 방향 전환 때 균형을 잡아 줘요."],["Why does a cheetah need to rest after a chase?",["It can keep top speed only for a short time.","It is afraid.","It is cold.","It is hungry."],"최고 속도는 짧은 시간만 유지할 수 있어요."],["What does \"rare\" mean in the last sentence?",["Not many exist","Very fast","Easy to find","Dangerous"],"rare = 드문."]]},
+{t:"Ellis Island",x:"From 1892 to 1954, many people who came to the United States by ship stopped first at Ellis Island in New York Harbor. Officials checked each person's papers and asked questions. Doctors checked their health. Most people passed in a few hours and were allowed to enter the country. A small number of people were sent home because of illness or problems with their papers. More than twelve million immigrants passed through Ellis Island. Today, many Americans can trace their family history back to someone who arrived there.",g:[["official","관리"],["papers","서류"],["illness","병"],["trace","추적하다"]],q:[["What happened at Ellis Island?",["Officials checked immigrants before they entered the country.","Ships were built.","Goods were sold.","Soldiers trained."],"입국 전에 서류와 건강을 확인했어요."],["Why were a few people sent home?",["Because of illness or paper problems","Because they were late","Because they were rich","Because they were young"],"질병이나 서류 문제 때문이에요."],["What does the last sentence show?",["Ellis Island is part of many families' history.","Ellis Island is closed.","Few people went there.","It is an old ship."],"많은 미국인의 가족사가 이곳과 이어져 있다는 뜻이에요."]]},
+{t:"The Science of Popcorn",x:"A popcorn kernel has a hard shell, and inside the shell there is a tiny drop of water. When you heat the kernel, the water turns into steam. Steam takes up much more space than water, so pressure builds inside the shell. The shell holds firm until the pressure is too strong. Then it bursts open with a pop. The soft starch inside puffs out and cools into the white, fluffy shape you eat. Kernels that do not pop usually have a crack in the shell, so the steam escapes before the pressure gets high enough.",g:[["kernel","낟알"],["steam","수증기"],["starch","녹말"],["crack","금"]],q:[["What turns into steam inside a kernel?",["A tiny drop of water","The shell","The starch","The oil"],"낟알 속 작은 물방울이 수증기로 변해요."],["What makes the kernel pop?",["Pressure builds until the shell bursts.","Someone hits it.","The shell melts.","The kernel gets cold."],"압력이 높아져 껍질이 터져요."],["Why do some kernels not pop?",["A crack lets the steam escape.","They are too big.","They are too green.","They are too cold."],"갈라진 틈으로 증기가 새어 나가기 때문이에요."]]},
+{t:"A Lighthouse Keeper's Day",x:"Long ago, ships needed lighthouses to warn them about rocks near the coast. A lighthouse keeper lived in or near the tower and had a long list of jobs. Each evening, the keeper lit the lamp and wound the clockwork that turned the lens. During the day, the keeper polished the glass, cleaned the lamp, and wrote notes about the weather in a logbook. In fog, the keeper also rang a bell or blew a horn. Today, most lighthouses work by themselves, but the old towers remind us of the people who kept sailors safe.",g:[["lens","렌즈"],["polish","닦아서 윤을 내다"],["logbook","항해(근무) 일지"],["fog","안개"]],q:[["Why were lighthouses built?",["To warn ships about rocks near the coast","To store food","To measure the weather","To make electricity"],"해안 바위를 배에게 알려 주려고요."],["What did a keeper do during the day?",["Cleaned the lamp and wrote in a logbook","Sailed the ships","Fished","Slept all day"],"램프와 유리를 닦고 일지를 썼어요."],["What does the last sentence mean?",["Lighthouses used to need people, but now most work on their own.","Lighthouses are gone.","Keepers still live in all lighthouses.","Ships no longer need light."],"요즘은 대부분 자동으로 작동해요."]]},
+{t:"Earthworms, the Soil's Helpers",x:"Earthworms may look plain, but they are very helpful to the garden. As they move, they dig tiny tunnels in the soil. The tunnels let air and water reach plant roots. Earthworms also eat dead leaves and bits of plants. What comes out of the worm is called castings, and it adds nutrients to the soil, much like natural fertilizer. A healthy garden may have hundreds of earthworms in a small patch of ground. When farmers see lots of worms, they know the soil is in good shape.",g:[["tunnel","굴"],["nutrient","영양분"],["fertilizer","비료"],["patch","작은 구역"]],q:[["How do earthworm tunnels help plants?",["They let air and water reach roots.","They keep the soil dry.","They scare away insects.","They make the soil hard."],"굴로 공기와 물이 뿌리에 닿아요."],["What are castings?",["What comes out of an earthworm","A type of leaf","A garden tool","A kind of root"],"지렁이의 배설물이에요. 영양분을 더해 줘요."],["What does lots of worms tell a farmer?",["The soil is healthy.","The weather is cold.","The plants are sick.","The farm is too wet."],"지렁이가 많다는 건 흙이 건강하다는 신호예요."]]},
+{t:"Edison and the Light Bulb",x:"In the 1870s, many inventors were trying to make a useful electric light. The hard part was the filament, the thin thread inside the bulb that glows when electricity passes through it. Most filaments burned out in minutes. Thomas Edison and his team tested thousands of materials. They tried different metals and plant fibers. In 1879, a filament made of carbonized cotton thread glowed for many hours. Later, a filament made of bamboo lasted more than a thousand hours. Edison did not give up after each failed test. He treated each one as information about what did not work.",g:[["filament","필라멘트"],["inventor","발명가"],["fiber","섬유"],["carbonized","탄화된 (숯처럼 만든)"]],q:[["What was the hardest part of making a light bulb?",["Finding a filament that lasted","Finding electricity","Making glass","Finding a lamp"],"오래 가는 필라멘트를 찾는 것이 어려웠어요."],["How did Edison find a good filament?",["He tested thousands of materials.","He bought one.","He asked a friend.","He guessed once."],"수천 가지 재료를 시험했어요."],["What does the last sentence suggest about Edison?",["He kept learning from failed tests.","He disliked testing.","He quit often.","He worked alone."],"실패한 시험도 정보로 삼았다는 뜻이에요."]]}
+];
+
+DATA.g8 = {};
+DATA.g8.words = [
+["analyze","v.","분석하다","Scientists analyze data to find patterns."],
+["hypothesis","n.","가설","Her hypothesis was that plants grow faster in sunlight."],
+["reluctant","adj.","마지못해 하는, 꺼리는","He was reluctant to speak in front of the class."],
+["significant","adj.","중요한, 상당한","There was a significant change in temperature."],
+["consequence","n.","결과, 영향","Skipping practice has a consequence: you fall behind."],
+["persuade","v.","설득하다","The ad is designed to persuade people to buy it."],
+["inevitable","adj.","피할 수 없는","With so much snow, a delay was inevitable."],
+["perspective","n.","관점, 시각","Try to see the problem from another perspective."],
+["democracy","n.","민주주의","In a democracy, citizens vote for their leaders."],
+["contrast","n.","대조, 차이","The contrast between light and dark makes the photo striking."],
+["reliable","adj.","믿을 수 있는","Check that your source is reliable before you cite it."],
+["ambiguous","adj.","모호한, 여러 뜻으로 읽히는","The ending of the story is ambiguous."],
+["distinguish","v.","구별하다","Can you distinguish fact from opinion?"],
+["accumulate","v.","쌓이다, 축적하다","Dust began to accumulate on the old shelves."],
+["sustain","v.","유지하다, 지탱하다","Healthy soil can sustain crops for many years."],
+["inference","n.","추론","An inference uses clues to figure out what the author does not say."],
+["evaluate","v.","평가하다","Evaluate each source before you trust it."],
+["interpret","v.","해석하다","Different readers interpret the poem in different ways."],
+["imply","v.","암시하다","The author does not say it, but the tone seems to imply anger."],
+["emphasize","v.","강조하다","The speaker will emphasize the need for teamwork."],
+["conclude","v.","결론짓다","From the data, we can conclude that the plant needs more light."],
+["assume","v.","가정하다","Don't assume everyone has the same experience as you."],
+["bias","n.","편견, 편향","A news story can show bias if it leaves out one side."],
+["credible","adj.","신뢰할 만한","A scientist's report is more credible than a rumor."],
+["controversy","n.","논란","The new rule caused controversy in our town."],
+["claim","n.","주장","Support your claim with two pieces of evidence."],
+["counterargument","n.","반론","A strong essay answers a counterargument."],
+["valid","adj.","타당한","That is a valid point."],
+["irony","n.","반어, 아이러니","The irony is that the fire station burned down."],
+["symbolize","v.","상징하다","The dove is often used to symbolize peace."],
+["narrator","n.","화자, 서술자","The narrator tells the story from his own point of view."],
+["protagonist","n.","주인공","The protagonist must overcome fear to reach her goal."],
+["conflict","n.","갈등","The main conflict is between two brothers."],
+["resolution","n.","해결, (이야기의) 결말","The resolution of the story comes in the last chapter."],
+["foreshadow","v.","복선을 깔다","Dark clouds foreshadow trouble later in the story."],
+["tone","n.","어조","The tone of the letter was polite but firm."],
+["mood","n.","분위기","The dim lights create a gloomy mood."],
+["metaphor","n.","은유","\"Time is a thief\" is a metaphor."],
+["allusion","n.","암시적 언급, 인유","The title is an allusion to a famous myth."],
+["motif","n.","반복되는 모티프","A river is a recurring motif in the novel."],
+["revolution","n.","혁명","The American Revolution began in 1775."],
+["independence","n.","독립","The colonies declared independence in 1776."],
+["amendment","n.","(헌법) 수정 조항","The First Amendment protects freedom of speech."],
+["legislation","n.","법률, 입법","New legislation about school lunches passed this year."],
+["federal","adj.","연방의","Federal laws apply in every state."],
+["treaty","n.","조약","The two nations signed a treaty to end the war."],
+["alliance","n.","동맹","The countries formed an alliance for protection."],
+["expansion","n.","확장","The expansion of railroads connected the East and West."],
+["immigrant","n.","이민자","Many immigrant families settled in New York City."],
+["industrial","adj.","산업의","Industrial towns grew quickly around factories."],
+["economy","n.","경제","A strong economy creates more jobs."],
+["supply","n.","공급","When supply is low, prices often rise."],
+["demand","n.","수요","Demand for umbrellas rises when it rains."],
+["resource","n.","자원","Water is a precious natural resource."],
+["territory","n.","영토","The United States bought the Louisiana territory in 1803."],
+["abolish","v.","폐지하다","The Thirteenth Amendment helped abolish slavery."],
+["reform","n.","개혁","Education reform changed how schools were funded."],
+["segregation","n.","(인종) 분리","Segregation kept students from attending the same schools."],
+["civil","adj.","시민의","The civil rights movement demanded equal treatment."],
+["oppose","v.","반대하다","Many voters oppose the new tax."],
+["advocate","v.","옹호하다","She will advocate for cleaner parks."],
+["protest","n.","시위, 항의","Students organized a peaceful protest."],
+["petition","n.","청원서","They collected signatures for a petition."],
+["policy","n.","정책","The school's new phone policy starts Monday."],
+["regulation","n.","규정","A regulation requires seat belts for all passengers."],
+["diverse","adj.","다양한","Our school has a diverse group of students."],
+["heritage","n.","유산, 전통","Festivals help families celebrate their heritage."],
+["urban","adj.","도시의","Urban areas have more people per square mile than rural areas."],
+["rural","adj.","시골의","Rural roads often have no sidewalks."],
+["globalization","n.","세계화","Globalization lets products travel quickly around the world."],
+["variable","n.","변수","Change only one variable in a fair test."],
+["data","n.","자료, 데이터","We recorded the data in a table."],
+["theory","n.","이론","The theory of gravity explains why objects fall."],
+["organism","n.","생물","A bacterium is a tiny organism."],
+["ecosystem","n.","생태계","A forest is a complex ecosystem."],
+["adaptation","n.","적응(한 특성)","A long neck is an adaptation for reaching tall trees."],
+["evolve","v.","진화하다","Over millions of years, species can evolve."],
+["extinct","adj.","멸종된","Dinosaurs became extinct millions of years ago."],
+["cell","n.","세포","Every living thing is made of at least one cell."],
+["photosynthesis","n.","광합성","Plants make food through photosynthesis."],
+["molecule","n.","분자","A water molecule has two hydrogen atoms and one oxygen atom."],
+["chemical","adj.","화학의","A chemical reaction made the mixture fizz."],
+["reaction","n.","반응","The reaction produced a gas."],
+["element","n.","원소","Oxygen is an element."],
+["compound","n.","화합물","Salt is a compound of sodium and chlorine."],
+["atmosphere","n.","대기","Earth's atmosphere protects us from harmful rays."],
+["erosion","n.","침식","Wind and water cause erosion of the soil."],
+["climate","n.","기후","The climate in Arizona is hot and dry."],
+["renewable","adj.","재생 가능한","Wind and solar are renewable sources of energy."],
+["efficient","adj.","효율적인","An LED bulb is more efficient than an old bulb."],
+["friction","n.","마찰","Friction slows a sled on rough snow."],
+["velocity","n.","속도 (방향 포함)","The velocity of the ball was thirty feet per second."],
+["acceleration","n.","가속","The car's acceleration pressed us into our seats."],
+["momentum","n.","운동량, 추진력","The team gained momentum after scoring twice."],
+["conserve","v.","아끼다, 보존하다","We should conserve water during a drought."],
+["contaminate","v.","오염시키다","Chemicals can contaminate the groundwater."],
+["microscopic","adj.","현미경으로만 보이는","Bacteria are microscopic."],
+["inherit","v.","물려받다","Children inherit traits from their parents."],
+["trait","n.","특성","Eye color is an inherited trait."],
+["dormant","adj.","휴면 상태의","The volcano has been dormant for centuries."],
+["approach","n.","접근법","A different approach may solve the problem."],
+["strategy","n.","전략","A good study strategy is to quiz yourself."],
+["priority","n.","우선순위","Finishing homework is my first priority."],
+["obstacle","n.","장애물","Fear can be an obstacle to success."],
+["persevere","v.","끈기 있게 계속하다","Athletes must persevere through hard training."],
+["initiative","n.","주도성, 솔선","She showed initiative by starting a recycling club."],
+["collaborate","v.","협력하다","Students collaborate on a group project."],
+["contribute","v.","기여하다","Everyone can contribute an idea."],
+["consistent","adj.","일관된","A consistent routine helps you study better."],
+["criteria","n.","기준 (복수형)","The teacher shared the criteria for the project."],
+["elaborate","v.","자세히 설명하다","Please elaborate on your second point."],
+["summarize","v.","요약하다","Summarize the article in two sentences."],
+["paraphrase","v.","바꿔 쓰다","Paraphrase the sentence in your own words."],
+["cite","v.","인용하다, 출처를 밝히다","Always cite your sources in a research paper."],
+["plagiarism","n.","표절","Copying without credit is plagiarism."],
+["revise","v.","고쳐 쓰다","Revise your draft to fix unclear sentences."],
+["transition","n.","연결, 전환","Add a transition between paragraphs."],
+["concise","adj.","간결한","Keep your answer concise."],
+["vague","adj.","모호한","The directions were too vague to follow."],
+["precise","adj.","정확한","Use precise words instead of general ones."],
+["neutral","adj.","중립적인","A news article should use neutral language."],
+["objective","adj.","객관적인","A good scientist stays objective."],
+["subjective","adj.","주관적인","Whether a song is good is subjective."],
+["ethical","adj.","윤리적인","It is not ethical to cheat on a test."],
+["integrity","n.","진실성, 청렴","A person with integrity does the right thing when no one is watching."],
+["loyalty","n.","충성심","The dog showed loyalty to its owner."],
+["compassion","n.","연민","She showed compassion by helping the injured bird."],
+["empathy","n.","공감","Empathy means understanding another person's feelings."],
+["resilient","adj.","회복력 있는","Resilient students try again after a setback."],
+["setback","n.","차질, 좌절","The injury was a setback for the team."],
+["ambitious","adj.","야심 찬","She set an ambitious goal to run a marathon."],
+["hesitate","v.","망설이다","Don't hesitate to ask for help."],
+["anticipate","v.","예상하다","We anticipate a large crowd at the game."],
+["sufficient","adj.","충분한","Make sure you have sufficient time to finish."],
+["scarce","adj.","부족한, 드문","Water is scarce in the desert."],
+["abundant","adj.","풍부한","Fish were abundant in the river."],
+["gradual","adj.","점진적인","The change was gradual, not sudden."],
+["abrupt","adj.","갑작스러운","The abrupt stop threw us forward."],
+["intense","adj.","강렬한","The heat was intense at noon."],
+["subtle","adj.","미묘한","There was a subtle difference between the two colors."],
+["enhance","v.","높이다, 향상시키다","Music can enhance a movie scene."],
+["diminish","v.","줄어들다","The pain began to diminish after an hour."],
+["generate","v.","만들어내다","Wind turbines generate electricity."],
+["transform","v.","변형시키다","A caterpillar will transform into a butterfly."],
+["eliminate","v.","제거하다","Washing hands can eliminate many germs."],
+["prohibit","v.","금지하다","School rules prohibit running in the halls."],
+["inspire","v.","영감을 주다","Her speech helped inspire the whole team."],
+["fascinate","v.","매혹하다","Space travel continues to fascinate young people."],
+["negotiate","v.","협상하다","Leaders negotiate to settle disagreements."],
+["compromise","n.","타협","They reached a compromise and shared the field."]
+];
+DATA.g8.sents = [
+["I'm not comfortable sharing my opinion in front of everyone.","comfortable은 'KUMF-ter-bul' 3음절로 읽어요. 가운데 for는 거의 사라져요."],
+["The scientist's hypothesis was supported by the data.","hypothesis는 둘째 음절 'POTH'에 강세예요. data는 '데이러'처럼 부드럽게."],
+["Although it was raining, we decided to finish the experiment.","although는 '올도우'. experiment는 둘째 음절 'SPER'에 강세."],
+["Would you rather study for an hour or take a short break?","Would you rather는 '우쥬 래더'로 이어져요. hour의 h는 소리 나지 않아요."],
+["That's a fascinating perspective that I hadn't considered.","fascinating의 sc에서 c는 소리 나지 않아요: 'FAS-uh-nay-ting'."],
+["The Constitution was written in Philadelphia in seventeen eighty-seven.","Constitution은 -TU-에 강세, Philadelphia는 -DEL-에 강세예요."],
+["The novel's protagonist faces a difficult choice.","protagonist는 둘째 음절 'TAG'에 강세예요: 'pro-TAG-uh-nist'."],
+["Scientists collect data to test their predictions.","predictions는 둘째 음절 'DIK'에 강세예요. data는 '데이러'."],
+["She emphasized the importance of reliable sources.","emphasized는 첫 음절 EM에 강세, 끝 -ed는 d 소리. reliable은 '릴라이어블'."],
+["The author uses irony to make readers think.","irony는 'EYE-ruh-nee'로 첫 음절에 강세가 와요."],
+["Many students were reluctant to volunteer.","reluctant는 둘째 음절 'LUK'에 강세. volunteer는 끝 'TEER'에 강세."],
+["The government held a public hearing on the new policy.","government는 'GUV-ern-ment', n 소리가 약해요. 첫 음절에 강세."],
+["They signed a treaty to end the long conflict.","conflict(명사)는 첫 음절 CON에 강세. treaty는 '트리티'."],
+["The temperature changed gradually over several weeks.","temperature는 'TEM-per-cher' 3음절로. gradually는 '그래쥬얼리'."],
+["He apologized for the misunderstanding and offered to help.","apologized는 둘째 음절 'POL'에 강세: 'uh-POL-uh-jized'."],
+["The experiment was repeated three times for accuracy.","accuracy는 첫 음절 'AK'에 강세. three의 th는 혀를 내밀어요."],
+["A balanced diet includes fruits, vegetables, and protein.","vegetables는 보통 3음절 'VEJ-tuh-bulz'로 읽어요."],
+["It is important to distinguish between fact and opinion.","distinguish는 둘째 음절 'TING'에 강세: 'dis-TING-gwish'."],
+["The ancient Romans built roads that still exist today.","exist는 둘째 음절 'ZIST'에 강세예요. ancient는 '에인션트'."],
+["Climate change affects weather patterns around the world.","climate는 '클라이밋'. affects는 둘째 음절에 강세 'uh-FEKTS'."],
+["She received an award for her outstanding research.","outstanding은 '아웃스탠딩'. research는 'REE-surch' 또는 'ri-SURCH'."],
+["The committee will vote on the proposal next Thursday.","committee는 둘째 음절 'MIT'에 강세. Thursday의 th는 혀를 내밀어요."],
+["We should consider the consequences of our actions.","consequences는 첫 음절 'CON'에 강세. 끝 -ces는 '시즈'."],
+["The documentary explores how language changes over time.","documentary는 'dok-yuh-MEN-tuh-ree'로 셋째 음절에 강세가 와요."],
+["He sounded confident, but his hands were shaking.","confident는 첫 음절 CON에 강세. shaking의 sh는 '쉬'."],
+["The photograph captures a quiet moment in the city.","photograph는 첫 음절 'FOH-tuh-graf'에 강세. quiet는 '콰이엇'."],
+["Please summarize the main idea in your own words.","summarize는 'SUM-uh-rize'. 'main idea'는 이어서 '메인아이디어'."],
+["The village is surrounded by mountains on three sides.","surrounded는 둘째 음절 'ROUND'에 강세: 'sur-ROUND-ed'."],
+["Plants need sunlight, water, and nutrients to grow.","nutrients는 첫 음절 NU에 강세예요. '뉴트리언츠'."],
+["The mayor refused to comment on the rumor.","mayor는 '메이어', rumor는 '루머'. comment는 첫 음절 강세."],
+["Historians study documents to understand the past.","historians는 둘째 음절 'TOR'에 강세. documents는 첫 음절 강세."],
+["This chemical reaction releases a lot of energy.","chemical은 'KEM-i-kul'. ch는 'ㅋ' 소리예요."],
+["The team showed incredible determination in the final game.","determination은 넷째 음절 'NAY'에 강세. incredible은 '인크레더블'."],
+["She presented a convincing argument for recycling.","convincing은 둘째 음절 'VIN'에 강세. recycling은 '리사이클링'."],
+["Several students raised their hands at the same time.","several은 'SEV-ruhl'처럼 2~3음절로. raised는 끝이 z 소리."],
+["The mountain range stretches for hundreds of miles.","stretches는 s-t-r를 한 번에 이어 말하고, 끝 -es는 '이즈'."],
+["He wondered whether the rumor was true.","whether의 th는 울리는 소리(/ð/)예요. weather와 발음이 같아요."],
+["A thorough investigation took several months.","thorough는 '써로우', gh는 소리 나지 않아요. investigation은 'GAY'에 강세."],
+["The company announced a new environmental program.","environmental은 'en-VY-ruhn-MEN-tul'처럼 둘째 음절에 강세."],
+["I couldn't concentrate because the room was so noisy.","concentrate는 첫 음절 CON에 강세. couldn't의 l은 소리 나지 않아요."],
+["The senator delivered a powerful speech about education.","education에서 d가 '쥬'처럼 들려요. '에주케이션'."],
+["Rainfall is scarce in this region, so farmers rely on wells.","scarce는 '스케어스'. region의 g는 '쥬' 소리 '리젼'."],
+["The artist combined bright colors and bold shapes.","combined는 둘째 음절 'BINED'에 강세. bright의 gh는 소리 없어요."],
+["He gradually gained confidence after weeks of practice.","gradually의 d는 '쥬'로 들려요. practice는 첫 음절 강세."],
+["Archaeologists discovered pottery buried beneath the sand.","archaeologists는 셋째 음절 'OL'에 강세. buried는 '베리드'."],
+["The librarian recommended a biography of Harriet Tubman.","biography는 둘째 음절 'OG'에 강세. recommended는 셋째 음절 강세."],
+["It's essential to cite your sources in a research paper.","essential은 둘째 음절 'SEN'에 강세. cite는 '사이트'로 site와 같아요."],
+["The ending surprised everyone in the audience.","surprised는 둘째 음절 'PRIZED'에 강세. audience는 'AW-dee-ense'."],
+["She hesitated before opening the envelope.","hesitated는 'HEZ-i-tay-ted'. envelope은 첫 음절 강세로 읽기도 해요."],
+["Our school collected over a thousand cans for the food bank.","thousand의 th는 혀를 내밀고 'THOW-zund'. 끝 d는 가볍게."],
+["The speaker paused to let the message sink in.","paused는 '포즈드'. sink in은 '싱킨'처럼 이어서 읽어요."],
+["Water vapor condenses into droplets on a cold glass.","vapor는 '베이퍼', condenses는 둘째 음절 'DEN'에 강세."],
+["The editor asked her to revise the opening paragraph.","revise는 둘째 음절 'VYZE'에 강세. paragraph는 첫 음절 강세."],
+["Many species are endangered because of habitat loss.","species는 '스피시즈'. endangered는 둘째 음절 'DAIN'에 강세."],
+["The detective examined every clue carefully.","detective는 둘째 음절 'TEK'에 강세. examined는 'ig-ZAM-ind'."],
+["After the storm, volunteers helped repair the damaged homes.","volunteers는 끝 'TEERZ'에 강세. damaged는 2음절 'DAM-ijd'."],
+["He tried to stay neutral and listen to both sides.","neutral은 '뉴트럴', 첫 음절에 강세가 와요."],
+["The recipe calls for two cups of flour and a pinch of salt.","recipe는 'RES-uh-pee' 3음절로 첫 음절에 강세. pinch는 '핀치'."],
+["She ran a marathon to raise money for charity.","marathon은 첫 음절 MAR에 강세. charity는 첫 음절 'CHAIR'."],
+["The bridge was closed because of structural damage.","structural은 'STRUK-cher-ul'. str을 한 호흡으로."],
+["It was a challenging project, but we finished it together.","challenging은 첫 음절 'CHAL'에 강세. 'CHAL-in-jing'."],
+["The article presents both sides of the debate fairly.","presents(동사)는 둘째 음절 'ZENTS'에 강세. article은 첫 음절 강세."],
+["Their friendship grew stronger after the argument.","friendship에서 d는 거의 들리지 않아요. argument는 첫 음절 강세."],
+["The new law will take effect in January.","effect는 둘째 음절 'FEKT'에 강세. January는 '재뉴어리'."],
+["We analyzed the results and drew a conclusion.","analyzed는 첫 음절 AN에 강세. results는 '리절츠'."],
+["Rising temperatures are melting the polar ice caps.","polar는 '폴러', temperatures는 'TEM-per-cherz'."],
+["The audience gave the performers a standing ovation.","ovation은 'oh-VAY-shun' 둘째 음절에 강세가 와요."],
+["He felt guilty about forgetting his friend's birthday.","guilty의 u는 소리 나지 않아요 '길티'. birthday의 th는 혀를 내밀어요."],
+["A reliable source gives accurate information.","accurate는 첫 음절 'AK'에 강세. information은 셋째 음절 강세."],
+["The orchestra tuned their instruments before the concert.","orchestra의 ch는 'k' 소리: 'OR-kuh-struh'. instruments는 첫 음절 강세."],
+["Scientists measure rainfall with a simple gauge.","gauge는 '게이지'. measure의 s는 '쥬' 소리: 'MEZH-er'."],
+["The coach encouraged the players to stay positive.","encouraged는 둘째 음절 'KUR'에 강세. positive는 첫 음절 강세."],
+["Many cultures celebrate the harvest with a feast.","cultures는 'KUL-cherz', harvest는 'HAR-vist', feast는 '피스트'."],
+["The path was steep, and the weather was unpredictable.","unpredictable은 셋째 음절 'DIK'에 강세. steep는 길게 '스티~프'."],
+["She apologized and promised to be more careful.","promised는 'PROM-ist'로 끝 -ed가 t 소리. careful은 '케어풀'."],
+["The city planned a new park near the river.","planned는 한 음절 '플랜드'. river는 r을 살려 '리버'."],
+["Competition can motivate people to improve.","competition은 셋째 음절 'TISH'에 강세. motivate는 첫 음절 강세."],
+["The scientist recorded her observations in a notebook.","observations는 셋째 음절 'VAY'에 강세. recorded(동사)는 둘째 음절 강세."],
+["There was a noticeable difference between the two samples.","noticeable은 첫 음절 'NOH'에 강세. difference는 'DIF-rens'."],
+["My cousin is studying engineering at college.","engineering은 셋째 음절 'NEER'에 강세. college는 '칼리지'."],
+["They celebrated their victory with a parade.","victory는 첫 음절 'VIK'에 강세. parade는 둘째 음절 'RADE'에 강세."],
+["The mysterious package arrived without a return address.","mysterious는 둘째 음절 'STEER'에 강세. address(명사)는 'uh-DRESS'로도 읽어요."],
+["It is difficult to predict how the story will end.","difficult는 'DIF-i-kult' 3음절. predict는 둘째 음절 'DIKT'에 강세."],
+["The teacher gave us feedback on our presentations.","feedback은 첫 음절 강세. presentations는 'prez-un-TAY-shunz'."],
+["Doctors recommend regular exercise and enough sleep.","recommend는 셋째 음절 'MEND'에 강세. exercise는 첫 음절 강세."],
+["The volcano erupted and covered the town in ash.","volcano는 둘째 음절 'KAY'에 강세. erupted는 '이럽티드'."],
+["Her laugh was contagious, and soon everyone was smiling.","laugh의 gh는 f 소리 '래프'. contagious는 둘째 음절 'TAY'에 강세."],
+["We need a plan that is realistic and affordable.","realistic은 셋째 음절 'LIS'에 강세. affordable은 둘째 음절 'FOR'에 강세."],
+["The festival attracts thousands of tourists every summer.","attracts는 둘째 음절 'TRAKTS'에 강세. tourists는 'TOOR-ists'."],
+["She whispered that she was not sure it was a good idea.","whispered는 w 소리만 나요. idea는 둘째 음절 'DEE'에 강세."]
+];
+DATA.g8.prompts = [
+"Should schools start later in the morning? Write a paragraph with your opinion and two reasons.",
+"Describe a challenge you overcame. What did you learn about yourself?",
+"Choose a book, show, or game you recommend. Persuade a classmate to try it, using at least two reasons.",
+"Do you think students should have homework on weekends? Take a position and support it with two reasons.",
+"Describe a person who has influenced you. Explain how they changed the way you think or act.",
+"Should cell phones be allowed in classrooms? Write an opinion with a reason and an example.",
+"Write about a time you had to make a difficult decision. What did you choose, and why?",
+"What is one problem in your community that you would like to fix? Explain your solution.",
+"Is it better to work alone or on a team? Support your answer with examples.",
+"Write about a time you changed your mind. What caused the change?",
+"Describe a place that is important to you. Use sensory details so the reader can picture it.",
+"What does it mean to be a good friend? Give two qualities and an example of each.",
+"Should every student learn a second language? Write your opinion with two reasons.",
+"Write about a mistake that taught you something important.",
+"If you could talk with a person from history, who would it be? Write three questions you would ask and explain why.",
+"Explain how technology has changed the way students learn. Include one benefit and one concern.",
+"Do you think young people should be required to volunteer? Take a position and support it.",
+"Describe a skill you would like to master. Explain why it matters to you and how you will practice.",
+"Write about a time you felt proud of a teammate or classmate. What did they do?",
+"Is it fair for schools to have dress codes? Give your opinion with two reasons and one counterargument.",
+"Describe a moment when you felt completely focused or in the zone. What were you doing?",
+"What advice would you give a younger student starting middle school? Write at least three tips with reasons.",
+"Should social media have age limits? Write a paragraph that takes a position and uses evidence.",
+"Write about a tradition or value from your family. Why is it meaningful to you?",
+"What is the most important invention of the last hundred years? Persuade the reader with two reasons.",
+"Describe a time when someone showed you kindness. How did it affect you?",
+"If you could change one rule at your school, what would it be? Explain why and how it would help.",
+"Write about a goal you have for the next five years. What steps will you take?",
+"Should schools teach more life skills like cooking or budgeting? Support your opinion with examples.",
+"Reflect on this week. What went well, what was hard, and what will you do differently next week?"
+];
+
+DATA.g8.passages = [
+{t:"Sleep and the Teenage Brain",x:"Many teenagers feel tired in the early morning, and it is not simply laziness. During puberty, the body's internal clock shifts later, so teens often do not feel sleepy until about 11 p.m. Researchers analyzed schools that moved their start times from 7:30 to 8:30 a.m. They found that students at those schools attended class more regularly and reported feeling more alert. Some districts have resisted the change because of bus schedules and after-school sports. Critics argue that the cost is significant, but supporters say the benefits to health and learning outweigh it. Whatever the final decision, scientists agree on one point: most teens need eight to ten hours of sleep each night.",g:[["puberty","사춘기"],["alert","정신이 맑은, 또렷한"],["district","교육구, 학군"],["outweigh","~보다 더 크다"]],q:[["Which statement best summarizes the passage?",["Teens' sleep needs have biological causes, and later start times may help.","Schools should start at 7:30 a.m.","Bus schedules matter more than sleep.","After-school sports should be canceled."],"사춘기 생체시계 변화와 등교 시간 연구가 핵심이에요."],["Why have some districts resisted later start times?",["Buses and after-school sports would be affected.","Students did worse in class.","Teachers wanted to sleep later.","Researchers advised against it."],"본문에 bus schedules and after-school sports가 이유로 나와요."],["As used in the passage, \"significant\" most nearly means:",["large enough to matter","very small","easy to ignore","completely free"],"significant cost = 무시하기 어려울 만큼 큰 비용."]]},
+{t:"The Printing Press Changes the World",x:"Before 1450, books in Europe were copied by hand, so only wealthy people could afford them. Johannes Gutenberg introduced a printing press with movable metal type, which let printers produce pages quickly. Within fifty years, millions of books had been printed. As a result, ideas moved faster than ever before. Literacy rose, new scientific theories spread across borders, and rulers found it harder to control information. Some historians compare the printing press to the internet today. However, the comparison is imperfect: the printing press took decades to change society, while the internet did it in just a few years.",g:[["movable type","활자 (낱개로 움직이는 글자 조각)"],["literacy","읽고 쓰는 능력"],["theory","이론"],["imperfect","완벽하지 않은"]],q:[["What was one result of cheaper, faster printing?",["Ideas spread across borders more quickly.","Fewer people learned to read.","Rulers controlled information more easily.","Handwritten books became cheaper."],"As a result 뒤에 ideas moved faster가 나와요."],["What does the author suggest by calling the comparison \"imperfect\"?",["The two changes happened at very different speeds.","The printing press was less important.","Historians disagree about Gutenberg.","The internet is older than the press."],"인쇄술은 수십 년, 인터넷은 몇 년이라는 속도 차이를 말해요."],["The word \"literacy\" is closest in meaning to:",["the ability to read and write","the cost of printing","a type of metal","a form of government"],"literacy = 글을 읽고 쓰는 능력."]]},
+{t:"The Dust Bowl",x:"In the 1930s, a severe drought hit the Great Plains. For years, farmers had plowed up the native prairie grass to plant wheat. The deep roots of that grass had held the soil in place. Without them, the dry topsoil turned to dust, and strong winds lifted it into huge storms. Some storms were so thick that people called them black blizzards. Crops failed, animals died, and many families packed their belongings and moved west to look for work. In 1935 the government created a soil conservation service to teach farmers new methods, such as planting trees as windbreaks.",g:[["drought","가뭄"],["topsoil","표토"],["windbreak","방풍림"],["conservation","보존"]],q:[["What caused the dust storms?",["Drought and the loss of prairie grass roots","Heavy rain and flooding","Volcano ash","Too many trees"],"가뭄과 뿌리 깊은 풀의 제거로 흙이 날렸어요."],["What does the phrase \"black blizzards\" suggest?",["The dust storms were thick and dark.","Snow fell at night.","The storms were short.","Farmers liked the storms."],"먼지 폭풍이 눈보라처럼 짙고 어두웠다는 비유예요."],["Why did many families move west?",["Their farms could no longer support them.","They wanted to build roads.","They enjoyed traveling.","The government forced them."],"작물이 죽어 농사로 살 수 없었기 때문이에요."]]},
+{t:"How Vaccines Work",x:"Your immune system protects you by learning to recognize germs. The first time a new germ enters your body, your immune system may need days to respond, and you can become ill. A vaccine gives your immune system a safe preview. It contains a harmless piece of the germ or a weakened version. Your body makes defenses against it, and special memory cells remember the germ. If the real germ appears later, your immune system can react quickly. When enough people in a community are vaccinated, germs have trouble spreading, which also protects people who cannot be vaccinated. Smallpox, once a deadly disease, was wiped out worldwide by 1980.",g:[["immune system","면역 체계"],["weakened","약화된"],["memory cell","기억 세포"],["wiped out","완전히 없어지다"]],q:[["What does a vaccine do?",["It lets the body practice recognizing a germ safely.","It kills all germs in the body.","It makes the body sick on purpose.","It replaces the immune system."],"해롭지 않은 형태로 미리 면역을 연습시켜요."],["Why does a vaccinated community protect people who cannot be vaccinated?",["Germs have trouble spreading.","Those people never meet others.","Their bodies make extra cells.","Germs disappear in winter."],"접종률이 높으면 병원체가 퍼지기 어려워요."],["What does the last sentence mainly show?",["Vaccines can help end a deadly disease.","Smallpox is still common.","Vaccines are very old.","Diseases never change."],"백신으로 천연두가 사라진 사례예요."]]},
+{t:"The Erie Canal",x:"In the early 1800s, moving goods from the Atlantic coast to the Great Lakes was slow and costly. Wagons struggled over muddy roads. New York leaders proposed digging a canal across the state, and many people called the idea foolish. Workers dug by hand and with simple tools. The Erie Canal opened in 1825 and stretched about 363 miles from Albany to Buffalo. Boats pulled by mules could now carry heavy loads cheaply. The cost of shipping fell sharply, towns along the canal grew, and New York City became the nation's busiest port.",g:[["canal","운하"],["propose","제안하다"],["costly","비용이 많이 드는"],["port","항구"]],q:[["Why was the canal important?",["It made shipping goods faster and cheaper.","It stopped floods.","It protected the coast.","It replaced all roads."],"운송 비용이 크게 줄었어요."],["What was one effect of the canal?",["New York City became the busiest port.","The Great Lakes dried up.","Albany became smaller.","Mules were no longer used."],"뉴욕시가 가장 바쁜 항구가 되었어요."],["What does the author mean by \"many people called the idea foolish\"?",["Many doubted that the canal could be built.","The canal was already finished.","People refused to work.","Leaders disliked the state."],"처음엔 불가능하다고 생각한 사람이 많았다는 뜻이에요."]]},
+{t:"School Uniforms: Two Views",x:"Supporters of school uniforms say they make mornings easier. Students do not have to decide what to wear, and families can save money on clothes. Uniforms may also reduce teasing about expensive brands and help students focus on learning. Critics reply that clothing is a form of self-expression. They argue that uniforms can feel like a loss of freedom, and the cost of buying special outfits can be a burden for some families. Studies have found mixed results on whether uniforms improve grades or behavior. In the end, each school community must weigh the benefits against the costs.",g:[["tease","놀리다"],["self-expression","자기 표현"],["burden","부담"],["mixed","엇갈리는"]],q:[["What is the author's main purpose?",["To present both sides of a debate","To argue for uniforms","To argue against uniforms","To describe a school day"],"양쪽 주장을 균형 있게 소개해요."],["According to critics, what is one problem with uniforms?",["They can limit self-expression.","They make mornings harder.","They are always cheap.","They improve grades."],"옷은 자기 표현 수단이라는 점을 비판해요."],["What does the phrase \"mixed results\" mean?",["Some studies agree and others do not.","All studies agree.","No one studied it.","The results are mixed up."],"연구 결과가 일치하지 않는다는 뜻이에요."]]},
+{t:"Coral Reefs in Trouble",x:"Coral reefs cover less than one percent of the ocean floor, yet they support about a quarter of all marine species. Corals are tiny animals that live in partnership with algae. The algae give corals food and bright color. When the ocean becomes too warm, the stressed corals expel the algae and turn white. This is called bleaching. A bleached coral is not dead, but it is weak, and it may die if the water stays warm for too long. Scientists are working to protect reefs by reducing pollution, setting up marine protected areas, and slowing climate change.",g:[["marine","바다의"],["algae","조류 (물속 식물성 생물)"],["expel","내보내다"],["bleaching","백화 현상"]],q:[["Why do corals turn white?",["Warm water stresses them, and they expel their algae.","They run out of food in winter.","Sharks eat them.","Ice forms on them."],"수온이 올라 조류를 내보내면 하얘져요."],["What can be inferred about bleached corals?",["They can recover if the water cools in time.","They are always dead.","They are stronger than before.","They grow faster."],"죽은 건 아니지만 약해졌고 오래 따뜻하면 죽을 수 있어요."],["Which detail best supports the idea that reefs are important?",["They support about a quarter of marine species.","They cover under one percent of the floor.","Corals are tiny.","Algae are bright."],"해양 생물 종의 약 4분의 1을 지탱해요."]]},
+{t:"The Space Race",x:"In October 1957, the Soviet Union launched Sputnik, the first artificial satellite. Americans were shocked. The United States and the Soviet Union were rivals in the Cold War, and many feared that being behind in space meant being behind in technology. In response, the U.S. created NASA in 1958 and invested heavily in science education. In April 1961, Soviet pilot Yuri Gagarin became the first person in space. The competition continued until July 1969, when Apollo 11 astronauts walked on the Moon. The rivalry was tense, but it also pushed both nations to make rapid advances in science and engineering.",g:[["satellite","인공위성"],["rival","경쟁자"],["invest","투자하다"],["advance","진보"]],q:[["How did the U.S. respond to Sputnik?",["It created NASA and invested in science education.","It stopped space research.","It joined the Soviet Union.","It built a wall."],"1958년 NASA를 만들고 과학 교육에 투자했어요."],["What does the last sentence suggest about the rivalry?",["Competition had a positive side effect.","The rivalry was friendly.","It stopped all progress.","Only one nation gained."],"긴장됐지만 과학 발전을 앞당겼다는 뜻이에요."],["Which event came first?",["Sputnik launched","Gagarin in space","Apollo 11 landing","NASA created"],"스푸트니크(1957)가 가장 먼저예요."]]},
+{t:"Attention in the Age of Notifications",x:"Many people check their phones dozens of times a day. Each buzz or ping can pull attention away from the task at hand. Researchers have found that after being interrupted, it can take several minutes to return fully to a difficult task. Some students say that having their phone nearby makes studying feel harder, even when they do not touch it. Others argue that phones are useful tools for learning and staying connected. Scientists are still studying how screens affect young people in the long run. Meanwhile, simple habits, like turning off notifications during homework, can help.",g:[["notification","알림"],["interrupt","방해하다, 끊다"],["in the long run","장기적으로"],["habit","습관"]],q:[["What is one effect of interruptions mentioned in the passage?",["It can take minutes to refocus on a hard task.","Tasks get easier.","Phones run out of power.","Students sleep more."],"방해받으면 다시 집중하는 데 몇 분이 걸려요."],["What can be inferred about the author's view?",["Phones have both benefits and drawbacks.","Phones are always harmful.","Phones should be banned.","Phones help every student."],"장단점을 모두 언급하며 균형 있게 서술해요."],["Which habit does the author suggest?",["Turning off notifications during homework","Buying a new phone","Checking the phone more often","Studying with the TV on"],"숙제 시간에 알림을 끄는 것을 제안해요."]]},
+{t:"Harriet Tubman: More Than a Conductor",x:"Harriet Tubman was born into slavery in Maryland. In 1849, she escaped to Pennsylvania, where she was free. She did not stay safe. Instead, she returned to Maryland about thirteen times and guided around seventy people to freedom along a secret network known as the Underground Railroad. During the Civil War, Tubman worked as a nurse, a scout, and a spy for the Union Army. In 1863, she helped lead a raid along the Combahee River that freed more than 700 enslaved people. She later fought for women's right to vote.",g:[["slavery","노예 제도"],["network","조직망"],["scout","정찰병"],["raid","습격 작전"]],q:[["What does the phrase \"She did not stay safe\" suggest?",["Tubman risked her life to help others.","Tubman was careless.","Tubman lived in danger by accident.","Tubman disliked freedom."],"스스로 안전을 포기하고 다른 이를 도왔다는 뜻이에요."],["What roles did Tubman play in the Civil War?",["Nurse, scout, and spy","Judge, farmer, and teacher","General, banker, and writer","Cook, pilot, and driver"],"간호사, 정찰병, 스파이로 일했어요."],["Which sentence best states the central idea?",["Tubman used courage to free others and fight for justice.","Tubman lived a quiet life.","The Civil War ended in 1863.","Maryland was a safe state."],"자유와 정의를 위해 용기를 낸 삶이 핵심이에요."]]},
+{t:"The Industrial Revolution",x:"Before the late 1700s, most goods were made by hand in homes or small workshops. Then inventors in Britain built machines powered by water and steam. Factories appeared, and goods could be made faster and cheaper. People moved from farms to cities to find work, and cities grew crowded. Many workers, including children, labored long hours in unsafe conditions. Over time, reformers pushed for laws that limited working hours and improved safety. The Industrial Revolution created new wealth and new problems, and it changed the way people lived and worked.",g:[["workshop","작업장"],["steam","증기"],["reformer","개혁가"],["conditions","환경, 상황"]],q:[["Why did people move to cities?",["To find factory jobs","To escape the cold","To avoid taxes","To learn to read"],"공장 일자리를 찾아서 이동했어요."],["What did reformers try to change?",["Working hours and safety","The price of steam","The speed of machines","The size of cities"],"노동 시간 제한과 안전 개선을 요구했어요."],["What does the last sentence suggest?",["The era brought both benefits and problems.","The era was fully positive.","Nothing changed.","Only farmers were affected."],"새로운 부와 문제를 함께 만들었다는 뜻이에요."]]},
+{t:"The Trouble with Microplastics",x:"Microplastics are pieces of plastic smaller than five millimeters. Some are made that small, such as the beads once used in face wash. Others form when larger items, like bottles and bags, break down in the sun and waves. Scientists have found microplastics in oceans, in soil, and even in drinking water. Animals can mistake them for food. How these particles affect human health is still being studied, so researchers urge caution rather than panic. People can reduce the problem by using less single-use plastic and by supporting better waste systems.",g:[["particle","입자"],["single-use","일회용"],["caution","조심"],["urge","강력히 권하다"]],q:[["How do many microplastics form?",["Larger plastic items break down.","Volcanoes make them.","Fish produce them.","Rain creates them."],"큰 플라스틱이 햇빛과 파도에 부서져요."],["What does the author mean by \"caution rather than panic\"?",["Be careful, but do not overreact.","Ignore the problem.","Be afraid of all plastic.","Panic is the best response."],"조심하되 과민 반응하지 말라는 뜻이에요."],["Why is human health a question mark?",["Scientists are still studying the effects.","No one has found microplastics.","Microplastics are harmless.","Water tests failed."],"인체 영향은 아직 연구 중이에요."]]},
+{t:"How Habits Form",x:"A habit is a behavior that your brain performs almost automatically. Brushing your teeth before bed is a habit. At first, you have to think about each step. With repetition, the brain stores the sequence as a unit so that it can save energy for new tasks. Many habits follow a loop: a cue, such as feeling tired, triggers a routine, such as scrolling on a phone, and a reward, such as relaxation, makes you want to repeat it. To change a habit, it is easier to keep the same cue and reward but swap in a new routine.",g:[["automatically","자동으로"],["repetition","반복"],["cue","신호, 계기"],["swap","바꾸다"]],q:[["Why does the brain store habits as a unit?",["To save energy for new tasks","To forget old tasks","To make you tired","To slow you down"],"에너지를 아껴 새로운 일에 쓰려고요."],["What is the cue in the example?",["Feeling tired","Scrolling on a phone","Relaxation","Brushing teeth"],"피곤함이 행동을 촉발하는 신호예요."],["What advice does the passage give?",["Replace the routine but keep the cue and reward.","Remove all cues.","Never change habits.","Repeat bad habits."],"신호와 보상은 두고 행동만 바꾸라고 해요."]]},
+{t:"Should We Go to Mars?",x:"Some scientists and engineers believe that humans should travel to Mars. They say exploring a new world inspires young people, drives new technology, and may provide clues about life beyond Earth. Others argue the trip is too risky and costly. A journey to Mars would take months, and astronauts would face radiation, isolation, and equipment failures far from help. Critics suggest the same money could be used to solve problems on Earth. Supporters respond that space programs have led to useful inventions, from medical scanners to water filters, and that exploration and Earth-based work can go hand in hand.",g:[["radiation","방사선"],["isolation","고립"],["scanner","스캐너, 검사 장치"],["go hand in hand","함께 가다"]],q:[["Which argument is made by supporters?",["Exploration can inspire people and lead to new technology.","Mars is a safe place.","Space is free to visit.","Earth has no problems."],"영감과 신기술이 이유예요."],["What risk is mentioned by critics?",["Radiation and isolation","Too many visitors","Heavy traffic","Lack of water on Earth"],"방사선, 고립, 장비 고장을 말해요."],["What does the last sentence suggest?",["Exploring space and helping Earth do not have to compete.","Space inventions are useless.","Earth does not matter.","Only one choice is possible."],"둘이 함께 갈 수 있다는 반론이에요."]]},
+{t:"The Great Depression",x:"In October 1929, the stock market crashed, and millions of Americans lost their savings. Banks failed, businesses closed, and workers lost their jobs. By 1933, about one in four workers was unemployed. Families stood in long lines for free food, and many lost their homes. President Franklin D. Roosevelt launched a set of programs called the New Deal. Some gave people jobs building roads, bridges, and parks. In 1935, the Social Security Act created a system of retirement income for older Americans. The economy recovered slowly, and it was not fully strong until the 1940s.",g:[["stock market","주식 시장"],["savings","저축"],["unemployed","실업 상태의"],["retirement","은퇴"]],q:[["What happened to many workers by 1933?",["About one in four lost their jobs.","They all got raises.","They moved abroad.","They started banks."],"약 4명 중 1명이 실직했어요."],["What was the goal of New Deal programs?",["To create jobs and support recovery","To close banks","To raise taxes only","To end the stock market"],"일자리를 만들고 경제 회복을 돕는 것이에요."],["What can be concluded from the last sentence?",["Recovery took many years.","The Depression ended in 1930.","Roosevelt failed immediately.","Nothing helped."],"완전히 회복되기까지 오래 걸렸어요."]]},
+{t:"Wolves Return to Yellowstone",x:"By the 1920s, wolves had been hunted out of Yellowstone National Park. Without them, elk herds grew large and grazed heavily on young trees along rivers. In 1995, wolves were brought back from Canada. The wolves hunted elk, and the elk began to avoid open areas where they were easy targets. In some places, willows and aspens grew back, and beavers and songbirds returned. Scientists call this chain of effects a trophic cascade. However, researchers still debate how large the wolves' influence was, since weather and other animals also play a role.",g:[["graze","풀을 뜯어 먹다"],["herd","(동물) 떼"],["cascade","연쇄적 효과"],["influence","영향"]],q:[["What happened when wolves disappeared?",["Elk herds grew and ate many young trees.","Beavers multiplied.","Rivers dried up.","Aspens disappeared everywhere."],"천적이 없어 엘크가 늘고 어린 나무를 먹어 치웠어요."],["What does the word \"cascade\" suggest?",["One change leads to another.","A sudden stop","A large waterfall only","A single event"],"연쇄적으로 이어지는 변화를 뜻해요."],["What is the debate mentioned at the end?",["How much the wolves truly changed the park","Whether wolves exist","Where wolves came from","If elk are fast"],"늑대의 영향이 얼마나 컸는지에 대한 논쟁이에요."]]},
+{t:"The Question",x:"Dana's hand twitched on her desk. The teacher had just explained how to find the area of a circle, and the formula still made no sense to her. Everyone else was nodding, so she assumed she was the only one who did not understand. She looked at the clock and decided to wait. Then Marcus raised his hand and said, \"Could you explain where the pi comes from?\" Dana let out a breath. Around the room, several students leaned forward. The teacher smiled and drew a circle on the board. Dana realized that asking would not have made her look foolish after all. It might have helped everyone.",g:[["twitch","씰룩이다"],["formula","공식"],["assume","가정하다"],["lean forward","몸을 앞으로 기울이다"]],q:[["Why did Dana wait to ask a question?",["She assumed she was the only one confused.","She was bored.","She knew the answer.","She was late."],"자기만 이해 못 한다고 가정했어요."],["What does Dana learn?",["Asking questions can help everyone.","Math is easy.","Teachers dislike questions.","Marcus is smart."],"질문이 모두에게 도움이 된다는 걸 알았어요."],["What does \"let out a breath\" show?",["Dana felt relieved.","Dana was sleepy.","Dana was angry.","Dana was cold."],"숨을 내쉬는 것은 안도감을 보여 줘요."]]},
+{t:"Electric Cars: Pros and Cons",x:"Electric cars do not burn gasoline, so they produce no exhaust from the tailpipe. That means cleaner air in cities and lower fuel costs for drivers. Their motors are quiet and respond quickly when the driver presses the pedal. However, electric cars also have drawbacks. Batteries require metals such as lithium and cobalt, and mining those materials can harm the environment. Charging stations are still less common than gas stations in many areas. How green an electric car really is depends partly on how the electricity is made. A car charged with solar or wind power has a smaller impact than one charged by burning coal.",g:[["exhaust","배기가스"],["drawback","단점"],["lithium","리튬"],["impact","영향"]],q:[["What is one benefit of electric cars?",["No exhaust from the tailpipe","Unlimited range","No batteries","Free charging everywhere"],"배기가스가 나오지 않아요."],["What does the last sentence mean?",["The source of electricity affects how green the car is.","All electricity is the same.","Coal is clean.","Solar power is expensive."],"전기를 어떻게 만드느냐에 따라 친환경 정도가 달라요."],["Which is a drawback mentioned?",["Mining battery metals can harm the environment.","They are too loud.","They need gasoline.","They cannot move fast."],"배터리용 금속 채굴이 환경에 해로울 수 있어요."]]},
+{t:"The Magna Carta",x:"In 1215, English nobles were angry at King John. He had raised taxes, punished people without fair trials, and ignored the traditional rights of the barons. Near a field called Runnymede, they forced him to agree to a charter known as the Magna Carta, which means Great Charter. The document said that even the king had to follow the law. It promised that people could not be punished without a lawful judgment. King John soon tried to ignore the agreement, but the idea survived. Centuries later, it influenced the ideas behind the U.S. Constitution and the Bill of Rights.",g:[["noble","귀족"],["charter","헌장"],["lawful","합법적인"],["survive","살아남다"]],q:[["What did the Magna Carta say about the king?",["He had to follow the law too.","He could change laws freely.","He did not need to pay taxes.","He was a god."],"왕도 법을 따라야 한다는 원칙이에요."],["Why were the nobles angry?",["The king raised taxes and punished people unfairly.","The king lost a war.","The king was too young.","The king gave away land."],"세금 인상과 부당한 처벌이 이유예요."],["What is the central idea of the last sentence?",["The Magna Carta influenced later ideas about rights.","It was forgotten soon after.","It only mattered in England.","It was written in 1787."],"훗날 미국 헌법에도 영향을 주었어요."]]},
+{t:"Roman Aqueducts",x:"Ancient Rome needed a huge amount of water for fountains, baths, and homes. Roman engineers solved the problem by building aqueducts, long channels that carried water from distant springs to the city. Aqueducts depended on gravity. Engineers measured carefully to give the channel a gentle, steady downward slope so that the water would flow without pumps. When a valley was in the way, they built tall stone arches to carry the channel across. Many aqueducts ran underground to protect the water. Some, like the Pont du Gard in France, still stand today and show how skillful the builders were.",g:[["aqueduct","수로교, 수도교"],["channel","수로"],["slope","경사"],["skillful","솜씨 좋은"]],q:[["How did water move through aqueducts?",["Gravity pulled it down a gentle slope.","Workers carried it.","Pumps pushed it.","Animals pulled it."],"완만한 경사와 중력으로 흘렀어요."],["Why did engineers build arches?",["To carry the channel across valleys","To make the water cold","To decorate the city","To store grain"],"계곡을 건너려고 아치를 세웠어요."],["What does the last sentence suggest?",["Roman building methods were durable and clever.","Roman aqueducts failed.","Aqueducts are modern.","France built all aqueducts."],"오래 남아 있어 기술이 뛰어났음을 보여 줘요."]]},
+{t:"How Language Changes",x:"Language is always changing. New words appear when new things need names, such as \"selfie\" or \"emoji.\" Slang spreads quickly among friends and online, and some of it disappears as fast as it arrived. Meanings can shift, too. The word \"nice\" once meant foolish in English, long before it came to mean pleasant. Spelling and pronunciation also change over generations. Some people worry that these changes make language worse. Linguists, scientists who study language, usually see change as natural. They say that language shifts because people use it to communicate in new situations.",g:[["slang","속어"],["shift","바뀌다"],["linguist","언어학자"],["generation","세대"]],q:[["Why do new words appear?",["New things need names.","Old words are broken.","Teachers invent them.","Dictionaries change them."],"새로운 것에 이름이 필요해서 새 단어가 생겨요."],["What example shows that meanings can shift?",["The word \"nice\"","The word \"selfie\"","The word \"emoji\"","The word \"slang\""],"nice는 원래 '어리석은'이라는 뜻이었어요."],["What is the linguists' view?",["Language change is natural.","Language change is harmful.","Language never changes.","Only slang matters."],"언어 변화는 자연스러운 현상이라고 봐요."]]},
+{t:"The Fight for the Vote",x:"In July 1848, activists met in Seneca Falls, New York, to demand equal rights for women, including the right to vote. For decades, women organized marches, wrote speeches, and were sometimes arrested. In 1920, the Nineteenth Amendment finally gave women the legal right to vote. However, many Black women, Native American women, and other women of color still faced barriers such as unfair tests and threats. Important laws such as the Voting Rights Act of 1965 were needed to protect these rights more fully. The story shows that winning a law is only one step toward equality.",g:[["activist","운동가"],["amendment","(헌법) 수정 조항"],["barrier","장벽"],["equality","평등"]],q:[["What did the Nineteenth Amendment do?",["It gave women the legal right to vote.","It ended slavery.","It created a new state.","It lowered taxes."],"1920년 여성의 투표권을 보장했어요."],["Why did some women still face barriers after 1920?",["Unfair tests and threats blocked many from voting.","They did not want to vote.","They moved away.","They were too busy."],"불공정한 시험과 위협이 있었어요."],["What is the main idea of the last sentence?",["A law alone does not guarantee equality.","Laws are unnecessary.","Equality was easy to win.","Everyone voted in 1920."],"법 하나로 끝나지 않는다는 교훈이에요."]]},
+{t:"How Earthquakes Happen",x:"Earth's outer layer is broken into huge pieces called tectonic plates. These plates move very slowly, only a few centimeters a year. Where plates meet, their edges can lock together because of friction. Meanwhile, stress builds up in the rock. Eventually the rock slips along a crack called a fault, and the stored energy is released as seismic waves that shake the ground. Scientists measure earthquakes with a magnitude scale. Each step up the scale means the ground shakes about ten times more. Earthquakes cannot be predicted exactly, but building codes can make buildings safer.",g:[["tectonic plate","지각판"],["fault","단층"],["seismic","지진의"],["magnitude","규모"]],q:[["What causes an earthquake?",["Rock slips along a fault and releases stored energy.","Heavy rain","The Moon's pull","Wind"],"쌓인 에너지가 단층에서 방출돼요."],["What does a higher magnitude mean?",["Stronger ground shaking","Longer days","Colder weather","Slower plates"],"한 단계 올라갈 때 흔들림이 약 10배예요."],["What can reduce earthquake damage?",["Building codes that make buildings safer","Moving the plates","Stopping the waves","Predicting exact times"],"내진 건축 기준이 피해를 줄여요."]]},
+{t:"Lemonade Math",x:"Jordan set up a lemonade stand and spent $12 on lemons, sugar, and cups. He sold 40 cups at 75 cents each. His total sales, or revenue, were $30. To find his profit, Jordan subtracted his costs from his revenue: $30 minus $12 equals $18. Jordan realized that if he raised the price to one dollar, he might earn more per cup, but fewer people might buy. If he lowered the price, more customers might come, yet each sale would earn less. A good business owner has to balance price, costs, and demand.",g:[["revenue","수입, 매출"],["profit","이익"],["subtract","빼다"],["balance","균형을 맞추다"]],q:[["What was Jordan's profit?",["$18","$12","$30","$42"],"수입 30달러에서 비용 12달러를 빼면 18달러예요."],["What could happen if Jordan raised the price?",["He might earn more per cup but sell fewer cups.","He would sell more cups.","Costs would disappear.","Revenue would be zero."],"가격을 올리면 컵당 이익은 늘지만 손님은 줄 수 있어요."],["What is the main idea?",["Business owners must balance price, costs, and demand.","Lemonade is cheap.","Profit is the same as revenue.","Prices never matter."],"가격, 비용, 수요 사이의 균형이 핵심이에요."]]},
+{t:"AI Helpers in the Classroom",x:"Some students use AI tools to get explanations, practice questions, or feedback on drafts. These tools can explain a hard idea in several ways, and they are available any time. However, they sometimes make mistakes or invent facts that sound convincing. Teachers also worry that students may copy the answers instead of learning. Many schools are creating rules about when AI is allowed and how its help should be explained. Experts recommend treating the tool like a tutor: ask it to explain, check its answers against a reliable source, and do the thinking yourself.",g:[["draft","초안"],["convincing","그럴듯한"],["tutor","개인 교사"],["expert","전문가"]],q:[["What is one risk of AI tools?",["They may give mistaken or invented facts.","They never answer.","They cost too much.","They are slow."],"그럴듯하지만 틀린 정보를 줄 수 있어요."],["What does it mean to treat AI like a tutor?",["Ask it to explain and check its answers","Let it do all the work","Ignore its advice","Copy it directly"],"설명을 듣고 스스로 생각하며 검증하라는 뜻이에요."],["What is the author's overall tone?",["Balanced","Angry","Humorous","Fearful"],"장점과 위험을 균형 있게 다뤄요."]]},
+{t:"The Silk Road",x:"The Silk Road was not a single road but a network of trade routes linking China, Central Asia, and the Mediterranean. Beginning more than two thousand years ago, merchants traveled in caravans, carrying silk, spices, and metalwork. Few traders went the whole way. Goods passed through many hands, so prices rose with each trade. Along with products, the routes carried ideas, religions, inventions like paper, and, sadly, diseases. Cities along the way grew rich. Eventually, sea routes became faster and cheaper, and the overland trade declined.",g:[["merchant","상인"],["caravan","대상 (낙타 행렬)"],["spice","향신료"],["decline","쇠퇴하다"]],q:[["Why did prices rise along the Silk Road?",["Goods passed through many traders.","Silk was rare in China.","Roads were free.","Few people wanted goods."],"여러 상인을 거치며 가격이 올랐어요."],["Besides goods, what else traveled on the routes?",["Ideas and diseases","Only soldiers","Only animals","Nothing"],"사상, 종교, 기술, 질병도 퍼졌어요."],["Why did overland trade decline?",["Sea routes became faster and cheaper.","Silk lost its color.","China closed its cities.","Caravans got lost."],"해상 교역이 더 빠르고 저렴해졌어요."]]},
+{t:"The Declaration of Independence",x:"On July 4, 1776, representatives of the thirteen colonies approved the Declaration of Independence. Thomas Jefferson was the main writer. The document explained why the colonies were separating from Britain and listed complaints against King George III. It also stated a bold idea: that all people are created equal and have rights that governments must protect. Yet the new nation did not extend those rights to everyone. Enslaved people and women were excluded. Later generations used the Declaration's own words to argue for change, showing how powerful an idea can become.",g:[["representative","대표자"],["complaint","불만, 항의"],["extend","확대하다"],["exclude","제외하다"]],q:[["Who was the main writer of the Declaration?",["Thomas Jefferson","George Washington","King George III","Benjamin Franklin"],"제퍼슨이 주요 집필자예요."],["What problem does the passage point out?",["The new nation did not give rights to everyone.","The colonies stayed with Britain.","The document was lost.","The date was wrong."],"노예와 여성이 제외되었어요."],["What does the last sentence suggest?",["The Declaration's ideas inspired later movements.","The Declaration was ignored.","Words have little power.","Britain wrote it."],"훗날 변화를 요구하는 근거가 되었어요."]]},
+{t:"Black Holes",x:"A black hole is a region of space where gravity is so strong that nothing, not even light, can escape. Most form when a very massive star runs out of fuel and collapses. The edge of the black hole is called the event horizon. Anything that crosses it cannot return. Because black holes give off no light, scientists cannot see them directly. Instead, they observe how a black hole affects nearby stars and gas. In 2019, a team of scientists released the first image of a black hole's shadow, located in a distant galaxy, using telescopes around the world.",g:[["gravity","중력"],["collapse","붕괴하다"],["event horizon","사건의 지평선"],["galaxy","은하"]],q:[["Why can't scientists see black holes directly?",["They give off no light.","They are too small.","They are too hot.","They are too close."],"빛이 나오지 않아서 직접 볼 수 없어요."],["How do scientists study black holes?",["By observing their effect on nearby stars and gas","By visiting them","By touching them","By guessing"],"주변 별과 가스에 미치는 영향을 관측해요."],["What happened in 2019?",["The first image of a black hole's shadow was released.","A black hole was visited.","A star exploded nearby.","Light escaped from a black hole."],"2019년 블랙홀 그림자의 첫 이미지가 공개되었어요."]]},
+{t:"What Failure Teaches",x:"Everyone fails sometimes, and many successful people have a long history of failed attempts. Inventors may test dozens of designs before one works. Athletes lose games and then study the video to improve. Psychologists argue that how people interpret failure matters more than the failure itself. If someone thinks, \"I'm just bad at this,\" they may give up. If they think, \"I haven't figured this out yet,\" they are more likely to adjust their strategy and try again. This outlook is sometimes called a growth mindset. It does not make failure painless, but it can turn failure into information.",g:[["attempt","시도"],["interpret","해석하다"],["outlook","관점"],["mindset","사고방식"]],q:[["According to psychologists, what matters most?",["How people interpret failure","How often people fail","Who sees the failure","Where the failure happens"],"실패를 어떻게 받아들이느냐가 중요해요."],["What does \"I haven't figured this out yet\" show?",["A growth mindset","A fixed mindset","Anger","Boredom"],"'아직'이라는 말이 성장 마인드셋을 보여 줘요."],["What does the last sentence mean?",["Failure can provide useful lessons.","Failure is always fun.","Failure should be avoided.","Failure makes no difference."],"실패가 배움의 정보가 될 수 있다는 뜻이에요."]]},
+{t:"The Panama Canal",x:"Before 1914, ships traveling between the Atlantic and Pacific oceans had to sail around the tip of South America, a dangerous journey of thousands of miles. The Panama Canal cut across a narrow strip of land and shortened the trip dramatically. Building it was extremely difficult. Workers had to dig through mountains and deal with heavy rain and landslides. Many workers died from diseases such as yellow fever and malaria until doctors learned that mosquitoes spread them and began controlling the insects. The canal uses locks, which raise ships to a lake and lower them again. The United States turned control of the canal over to Panama in 1999.",g:[["strip","좁고 긴 땅"],["landslide","산사태"],["lock","(운하의) 수문"],["malaria","말라리아"]],q:[["Why was the canal built?",["To shorten the trip between oceans","To store water","To make a lake for fishing","To block ships"],"남미를 돌아가는 긴 항로를 줄이려고요."],["How did doctors help the project?",["They found that mosquitoes spread diseases and controlled them.","They invented the locks.","They dug the mountains.","They built the ships."],"모기가 병을 옮긴다는 것을 알고 방제했어요."],["What do locks do?",["Raise and lower ships between water levels","Keep ships out","Collect rain","Clean the water"],"수위가 다른 곳 사이로 배를 올리고 내려요."]]}
+];
+
+
+["g5", "g8"].forEach(k => {
+  const d = DATA[k];
+  d.words = d.words.map(a => ({ w: a[0], pos: a[1], ko: a[2], ex: a[3] }));
+  d.sents = d.sents.map(a => ({ t: a[0], n: a[1] }));
+});
+const CYCLE = 30;
+const TABS = [["vocab", "단어", "Words", "vocab"], ["read", "읽기", "Reading", "read"], ["listen", "듣기", "Listening", "listen"], ["write", "쓰기", "Writing", "write"]];
+
+/* ---------- state ---------- */
+const START = new Date(2026, 9, 11); // DAY 1 = Oct 11, 2026
+const dayNumOf = d => Math.max(0, Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - START) / 86400000));
+const fmt = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const KEY = "homeroom-english-daily-v1";
+const newProfile = () => ({ box: {}, points: 0, days: [], done: {}, essays: {} });
+let S = { profile: "g5", names: { g5: "5학년", g8: "8학년" }, p: { g5: newProfile(), g8: newProfile() } };
+try { const raw = localStorage.getItem(KEY); if (raw) { const o = JSON.parse(raw); if (o && o.p) S = Object.assign(S, o); } } catch (e) {}
+["g5", "g8"].forEach(k => { S.p[k] = Object.assign(newProfile(), S.p[k] || {}); });
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const cur = () => S.p[S.profile];
+const LV = () => DATA[S.profile];
+const TODAY = () => dayNumOf(new Date());
+const UI = { tab: "vocab", day: TODAY(), vmode: "cards", ci: 0, flip: false, quiz: null, ans: [], lmode: "dict", ls: 0, dt: {}, rev: {}, draft: {}, copied: false };
+const idx = () => UI.day % CYCLE;
+const cyc = () => Math.floor(UI.day / CYCLE);
+
+function touch() { const p = cur(), t = fmt(new Date()); if (p.days.indexOf(t) < 0) { p.days.push(t); if (p.days.length > 500) p.days.shift(); } }
+function addPoints(n) { cur().points += n; touch(); save(); }
+function award(key, n) { const p = cur(), k = UI.day + ":" + key; if (p.done[k]) return false; p.done[k] = 1; addPoints(n); return true; }
+function isDone(t) { return !!cur().done[UI.day + ":task:" + t]; }
+function markDone(t) {
+  if (isDone(t)) return;
+  cur().done[UI.day + ":task:" + t] = 1; addPoints(20);
+  if (["vocab", "read", "listen", "write"].every(isDone)) { if (award("all", 30)) toast("오늘 학습 완료! 보너스 +30"); else toast("완료! +20"); }
+  else toast("완료! +20 포인트");
+}
+function streak(p) { const set = new Set(p.days), d = new Date(); if (!set.has(fmt(d))) d.setDate(d.getDate() - 1); let n = 0; while (set.has(fmt(d))) { n++; d.setDate(d.getDate() - 1); } return n; }
+const boxOf = w => cur().box[w] || 0;
+function setBox(w, v) { cur().box[w] = Math.max(0, Math.min(3, v)); touch(); save(); }
+
+/* ---------- helpers ---------- */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function sshuffle(a, seed) { a = a.slice(); const r = rng(seed); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+let toastTimer;
+function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2600); }
+let voice = null;
+function pickVoice() { try { const vs = speechSynthesis.getVoices(); voice = vs.find(v => v.lang === "en-US" && /Samantha|Google US|Aria|Jenny|Natural|Ava/i.test(v.name)) || vs.find(v => v.lang === "en-US") || vs.find(v => /^en/.test(v.lang)) || null; } catch (e) {} }
+try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
+function speak(text, rate) {
+  try {
+    if (!("speechSynthesis" in window)) { toast("이 기기는 음성 재생을 지원하지 않아요."); return; }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text); u.lang = "en-US"; u.rate = rate || 0.95; if (voice) u.voice = voice;
+    speechSynthesis.speak(u);
+  } catch (e) { toast("소리를 재생하지 못했어요."); }
+}
+function copyText(str) {
+  const fallback = () => { const ta = document.createElement("textarea"); ta.value = str; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); let ok = false; try { ok = document.execCommand("copy"); } catch (e) {} ta.remove(); toast(ok ? "복사했어요. Claude에 붙여넣으세요." : "복사하지 못했어요. 글을 직접 선택해 복사해 주세요."); };
+  try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(str).then(() => toast("복사했어요. Claude에 붙여넣으세요."), fallback); else fallback(); } catch (e) { fallback(); }
+}
+const dots = b => '<span class="dots" aria-label="숙련도 ' + b + '/3">' + [0, 1, 2].map(i => '<i class="' + (b > i ? "on" : "") + '"></i>').join("") + "</span>";
+const todayWords = () => LV().words.slice(5 * idx(), 5 * idx() + 5);
+const reviewPool = () => { const all = LV().words; return cyc() > 0 ? all : all.slice(0, 5 * (idx() + 1)); };
+function weightedPick(poolWords, n) {
+  const pool = poolWords.slice(), out = [];
+  while (out.length < n && pool.length) {
+    const wt = pool.map(x => 4 - boxOf(x.w)), sum = wt.reduce((a, b) => a + b, 0);
+    let r = Math.random() * sum, i = 0;
+    for (; i < pool.length - 1; i++) { r -= wt[i]; if (r <= 0) break; }
+    out.push(pool.splice(i, 1)[0]);
+  }
+  return out;
+}
+function newQ(word) {
+  const all = LV().words; let same = all.filter(x => x.w !== word.w && x.pos === word.pos);
+  if (same.length < 3) same = all.filter(x => x.w !== word.w);
+  const wrong = shuffle(same).slice(0, 3).map(x => x.w);
+  return { word, choices: shuffle([word.w].concat(wrong)), picked: null };
+}
+function startQuiz(mode) {
+  const list = mode === "today" ? shuffle(todayWords()) : weightedPick(reviewPool(), 10);
+  UI.quiz = { mode, list, i: 0, ok: 0, cur: newQ(list[0]), done: false };
+}
+const blank = word => esc(word.ex).replace(new RegExp("\\b" + word.w + "\\b", "i"), "<u>&nbsp;</u>");
+const hilite = word => esc(word.ex).replace(new RegExp("\\b(" + word.w + ")\\b", "i"), "<mark>$1</mark>");
+function resetDay() { UI.ci = 0; UI.flip = false; UI.quiz = null; UI.ans = []; UI.ansOk = []; UI.ls = 0; UI.dt = {}; UI.vmode = "cards"; }
+const dayLabel = d => { const x = new Date(2026, 9, 11 + d), w = ["일", "월", "화", "수", "목", "금", "토"][x.getDay()]; return (x.getMonth() + 1) + "월 " + x.getDate() + "일 (" + w + ")"; };
+
+/* ---------- views ---------- */
+function renderTop() {
+  const p = cur(), done = ["vocab", "read", "listen", "write"].filter(isDone).length;
+  document.getElementById("profiles").innerHTML = ["g5", "g8"].map(k => '<button type="button" data-act="profile" data-k="' + k + '" aria-pressed="' + (S.profile === k) + '"><b>' + esc(S.names[k] || META[k].label) + "</b><small>" + META[k].label + "</small></button>").join("");
+  document.getElementById("stats").innerHTML = '<div class="stat"><b>' + p.points + '</b><span>포인트</span></div><div class="stat"><b>' + streak(p) + '</b><span>연속 학습일</span></div><div class="stat"><b>' + done + "/4</b><span>이 날 완료</span></div>";
+  const td = TODAY();
+  document.getElementById("daybar").innerHTML = '<button type="button" data-act="prev" aria-label="이전 날"' + (UI.day <= 0 ? " disabled" : "") + '>&#9664;</button><div class="mid"><b>DAY ' + (UI.day + 1) + '</b><small>' + dayLabel(UI.day) + (UI.day === td ? " · 오늘" : "") + (cyc() > 0 ? " · " + (cyc() + 1) + "회차 복습" : "") + '</small></div><button type="button" data-act="next" aria-label="다음 날"' + (UI.day >= td ? " disabled" : "") + '>&#9654;</button>';
+  document.getElementById("checks").innerHTML = TABS.map(t => '<span class="check' + (isDone(t[3]) ? " on" : "") + '">' + (isDone(t[3]) ? "✓ " : "") + t[1] + "</span>").join("");
+  document.getElementById("tabs").innerHTML = TABS.map(t => '<button type="button" data-act="tab" data-k="' + t[0] + '"' + (UI.tab === t[0] ? ' aria-current="page"' : "") + "><b>" + t[1] + "</b><small>" + t[2] + "</small></button>").join("");
+}
+
+function vocabView() {
+  const tw = todayWords();
+  let h = '<section class="panel"><div class="subtabs">' +
+    [["cards", "오늘의 5단어"], ["quiz", "오늘 퀴즈"], ["review", "복습 퀴즈"]].map(m => '<button type="button" class="chip" data-act="vmode" data-k="' + m[0] + '" aria-pressed="' + (UI.vmode === m[0]) + '">' + m[1] + "</button>").join("") + "</div>";
+  if (UI.vmode === "cards") {
+    if (UI.ci >= tw.length) {
+      h += '<div class="card" style="min-height:0"><h2>오늘 카드 끝!</h2><span class="muted" style="font-family:var(--font-ko)">이제 퀴즈로 확인해 봐요.</span></div><div class="row"><button type="button" class="btn alt" data-act="cardsagain">카드 다시 보기</button><button type="button" class="btn hot grow" data-act="vmode" data-k="quiz">오늘 퀴즈 풀기</button></div>';
+    } else {
+      const w = tw[UI.ci];
+      h += '<span class="wc">카드 ' + (UI.ci + 1) + " / " + tw.length + "</span>";
+      if (!UI.flip) h += '<button type="button" class="card" data-act="flip" aria-label="카드 뒤집기"><span class="pos">' + esc(w.pos) + " " + dots(boxOf(w.w)) + '</span><span class="word">' + esc(w.w) + '</span><span class="hint">카드를 눌러 뜻을 확인해요</span></button><div class="row"><button type="button" class="btn alt" data-act="say" data-t="' + esc(w.w) + '">발음 듣기</button></div>';
+      else h += '<div class="card"><span class="pos">' + esc(w.w) + " · " + esc(w.pos) + '</span><span class="mean">' + esc(w.ko) + '</span><span class="eg">' + hilite(w) + '</span></div><div class="row"><button type="button" class="btn alt" data-act="say" data-t="' + esc(w.ex) + '">예문 듣기</button></div><div class="row"><button type="button" class="btn alt grow" data-act="grade" data-k="0">헷갈려요</button><button type="button" class="btn hot grow" data-act="grade" data-k="1">알아요</button></div>';
+    }
+  } else {
+    const wantMode = UI.vmode === "quiz" ? "today" : "review";
+    if (!UI.quiz || UI.quiz.mode !== wantMode) startQuiz(wantMode);
+    const q = UI.quiz;
+    if (q.done) h += '<div class="card" style="min-height:0"><h2>' + q.ok + " / " + q.list.length + '</h2><span class="muted" style="font-family:var(--font-ko)">틀린 단어는 복습 퀴즈에 더 자주 나와요.</span></div><div class="row"><button type="button" class="btn hot" data-act="qrestart">한 번 더</button></div>';
+    else {
+      const c = q.cur, w = c.word;
+      h += '<div class="row" style="justify-content:space-between"><span class="wc">' + (q.i + 1) + " / " + q.list.length + "</span>" + dots(boxOf(w.w)) + '</div><div class="progress"><i style="width:' + Math.round(q.i / q.list.length * 100) + '%"></i></div><p class="q-sentence">' + (c.picked ? hilite(w) : blank(w)) + '</p><div class="choices">' +
+        c.choices.map(x => { let cls = "choice"; if (c.picked) { if (x === w.w) cls += " right"; else if (x === c.picked) cls += " wrong"; } return '<button type="button" class="' + cls + '" data-act="pick" data-k="' + esc(x) + '"' + (c.picked ? " disabled" : "") + ">" + esc(x) + "</button>"; }).join("") + "</div>";
+      if (c.picked) h += '<p class="feedback">' + (c.picked === w.w ? "정답! " : "아쉬워요. ") + "<b>" + esc(w.w) + "</b> = " + esc(w.ko) + '</p><div class="row"><button type="button" class="btn alt" data-act="say" data-t="' + esc(w.ex) + '">문장 듣기</button><button type="button" class="btn hot grow" data-act="qnext">' + (q.i >= q.list.length - 1 ? "결과 보기" : "다음 문제") + "</button></div>";
+    }
+  }
+  h += "</section>";
+  const tset = new Set(tw.map(x => x.w));
+  h += '<section class="panel"><h3>내 단어장</h3><div class="words">' + reviewPool().map(x => '<span class="wchip' + (tset.has(x.w) ? " today" : "") + '">' + esc(x.w) + " " + dots(boxOf(x.w)) + "</span>").join("") + '</div><span class="wc">노란 밑줄이 오늘의 단어예요.</span></section>';
+  return h;
+}
+
+function readView() {
+  const ps = LV().passages[idx()];
+  let h = '<section class="panel"><h2>' + esc(ps.t) + '</h2><p class="passage">' + esc(ps.x) + '</p><div class="row"><button type="button" class="btn alt" data-act="say" data-t="' + esc(ps.x) + '" data-r="0.9">지문 들려주기</button></div>' +
+    '<details><summary>어려운 단어 보기</summary><dl class="gloss" style="margin-top:10px">' + ps.g.map(g => "<dt>" + esc(g[0]) + "</dt><dd>" + esc(g[1]) + "</dd>").join("") + "</dl></details></section><section class=\"panel\">";
+  h += ps.q.map((q, qi) => {
+    const opts = sshuffle(q[1].map((o, i) => ({ o, ok: i === 0 })), UI.day * 13 + qi * 5 + (S.profile === "g8" ? 101 : 7)), a = UI.ans[qi];
+    return '<div class="qblock"><p class="q">' + (qi + 1) + ". " + esc(q[0]) + '</p><div class="choices one">' +
+      opts.map((o, oi) => { let cls = "choice"; if (a !== undefined) { if (o.ok) cls += " right"; else if (oi === a) cls += " wrong"; } return '<button type="button" class="' + cls + '" data-act="answer" data-q="' + qi + '" data-k="' + oi + '" data-ok="' + (o.ok ? 1 : 0) + '"' + (a !== undefined ? " disabled" : "") + ">" + esc(o.o) + "</button>"; }).join("") +
+      "</div>" + (a !== undefined ? '<p class="feedback">' + (opts[a].ok ? "정답! " : "아쉬워요. ") + esc(q[2]) + "</p>" : "") + "</div>";
+  }).join("");
+  const n = UI.ans.filter(x => x !== undefined).length;
+  if (n === ps.q.length) { const got = ps.q.filter((q, qi) => UI.ansOk && UI.ansOk[qi]).length; h += '<p class="feedback"><b>오늘 읽기 완료: ' + got + " / " + ps.q.length + " 정답</b></p>"; }
+  return h + "</section>";
+}
+
+function listenView() {
+  const sents = LV().sents.slice(3 * idx(), 3 * idx() + 3), s = sents[UI.ls];
+  const ndone = [0, 1, 2].filter(i => cur().done[UI.day + ":dict:" + i]).length;
+  let h = '<section class="panel"><div class="subtabs"><button type="button" class="chip" data-act="lmode" data-k="dict" aria-pressed="' + (UI.lmode === "dict") + '">받아쓰기</button><button type="button" class="chip" data-act="lmode" data-k="shadow" aria-pressed="' + (UI.lmode === "shadow") + '">따라 말하기</button></div>' +
+    '<div class="subtabs">' + sents.map((x, i) => '<button type="button" class="chip" data-act="lsel" data-k="' + i + '" aria-pressed="' + (UI.ls === i) + '">문장 ' + (i + 1) + (cur().done[UI.day + ":dict:" + i] ? " ✓" : "") + "</button>").join("") + '</div><span class="wc">받아쓰기 ' + ndone + " / 3 완료 (3개를 끝내면 오늘 듣기 완료)</span>";
+  const play = '<div class="row"><button type="button" class="btn" data-act="say" data-t="' + esc(s.t) + '" data-r="0.95">듣기</button><button type="button" class="btn alt" data-act="say" data-t="' + esc(s.t) + '" data-r="0.65">천천히</button></div>';
+  if (UI.lmode === "dict") {
+    const st = UI.dt[UI.ls] || (UI.dt[UI.ls] = { text: "", res: null });
+    h += "<p class='muted' style='margin:0;font-family:var(--font-ko)'>문장을 듣고 그대로 써 보세요. 대소문자와 문장부호는 신경 쓰지 않아도 돼요.</p>" + play +
+      '<label for="dict-in">들은 문장</label><textarea id="dict-in" rows="2" autocomplete="off" autocapitalize="off" spellcheck="false">' + esc(st.text) + "</textarea>";
+    if (st.res) {
+      const d = st.res;
+      h += '<div class="diff">' + d.tokens.map(t => '<span class="' + (t.hit ? "ok" : "miss") + '">' + esc(t.w) + "</span>").join("") + '</div><p class="feedback">' + (d.perfect ? "완벽해요!" : d.hits + " / " + d.tokens.length + " 단어를 맞혔어요. 빨간 단어를 다시 들어 보세요.") + "</p><p class='sentence-big'>" + esc(s.t) + "</p>" +
+        '<div class="row"><button type="button" class="btn alt" data-act="dretry">다시 쓰기</button><button type="button" class="btn hot grow" data-act="lnext">다음 문장</button></div>';
+    } else h += '<div class="row"><button type="button" class="btn hot grow" data-act="dcheck">확인하기</button></div>';
+  } else {
+    const done = !!cur().done[UI.day + ":sh:" + UI.ls];
+    h += '<p class="sentence-big">' + esc(s.t) + "</p>" + play + '<div class="note"><b>발음 포인트</b><br>' + esc(s.n) + '</div><p class="muted" style="margin:0;font-size:13px;font-family:var(--font-ko)">녹음 확인은 지원하지 않아요. 들은 대로 소리 내어 3번 따라 하고 스스로 체크하세요.</p>' +
+      '<div class="row"><button type="button" class="btn hot grow" data-act="shdone"' + (done ? " disabled" : "") + ">" + (done ? "완료" : "3번 따라 했어요 +5") + '</button><button type="button" class="btn alt" data-act="lnext">다음 문장</button></div>';
+  }
+  return h + "</section>";
+}
+
+function writeView() {
+  const L = LV(), M = META[S.profile], prompt = L.prompts[idx()], saved = cur().essays[UI.day];
+  const txt = UI.draft[UI.day] !== undefined ? UI.draft[UI.day] : (saved ? saved.text : "");
+  const wc = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+  let h = '<section class="panel"><p style="margin:0;font-size:18px;max-width:65ch">' + esc(prompt) + '</p>' +
+    '<details><summary>쓰기 도우미 (문장 시작 표현·체크리스트)</summary><p style="margin:10px 0 4px"><b>이런 표현으로 시작해 보세요</b></p><ul class="list">' + M.starters.map(x => "<li>" + esc(x) + "</li>").join("") + '</ul><p style="margin:10px 0 4px"><b>다 쓰고 확인</b></p><ul class="list">' + M.checklist.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul></details>" +
+    '<label for="essay-in">내 글 (영어로)</label><textarea id="essay-in" rows="8" spellcheck="true">' + esc(txt) + '</textarea><div class="row" style="justify-content:space-between"><span class="wc" id="wc">' + wc + " / " + M.min + '단어 이상</span><button type="button" class="btn hot" data-act="essaysave">저장하기</button></div>' +
+    '<div class="row"><button type="button" class="btn alt" data-act="essaycopy">Claude 첨삭 요청문 복사</button></div><p class="muted" style="margin:0;font-size:13px;font-family:var(--font-ko)">복사한 글을 아빠 Claude 대화창에 붙여넣으면 첨삭을 받을 수 있어요.</p></section>';
+  const keys = Object.keys(cur().essays).map(Number).sort((a, b) => b - a);
+  if (keys.length) h += '<section class="panel"><details><summary>내가 쓴 글 모아보기 (' + keys.length + "개)</summary>" + keys.map(k => '<div class="saved"><b>DAY ' + (k + 1) + " · " + esc(dayLabel(k)) + "</b>\n" + esc(cur().essays[k].text) + "</div>").join("") + "</details></section>";
+  return h;
+}
+
+function render() {
+  renderTop();
+  document.getElementById("main").innerHTML = UI.tab === "vocab" ? vocabView() : UI.tab === "read" ? readView() : UI.tab === "listen" ? listenView() : writeView();
+  ["g5", "g8"].forEach(k => { const el = document.getElementById("name-" + k); if (el && document.activeElement !== el) el.value = S.names[k] || ""; });
+}
+
+/* ---------- actions ---------- */
+function norm(s) { return s.replace(/[‘’]/g, "'").toLowerCase().replace(/[^a-z0-9'\s]/g, " ").replace(/\s+/g, " ").trim().split(" ").filter(Boolean); }
+function lcsHits(t, u) {
+  const n = t.length, m = u.length, dp = Array.from({ length: n + 1 }, () => Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) dp[i][j] = t[i] === u[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  const hit = Array(n).fill(false); let i = 0, j = 0;
+  while (i < n && j < m) { if (t[i] === u[j]) { hit[i] = true; i++; j++; } else if (dp[i + 1][j] >= dp[i][j + 1]) i++; else j++; }
+  return hit;
+}
+function essayRequest() {
+  const grade = S.profile === "g5" ? "5학년" : "8학년", text = (UI.draft[UI.day] !== undefined ? UI.draft[UI.day] : (cur().essays[UI.day] || {}).text) || "";
+  return "아래는 미국 " + grade + " 학생(한국어가 모국어)이 쓴 영어 글이에요. 학년 수준에 맞게 첨삭해 주세요.\n형식: 1) 한국어 칭찬 한 줄 2) 오류만 고친 수정본(학생의 생각과 말투는 유지) 3) 고칠 점 최대 3개(원문 -> 수정, 한국어 설명 한 줄) 4) 더 좋게 쓰는 팁 1개(쉬운 영어 한 문장 + 한국어 힌트)\n\n주제: " + LV().prompts[idx()] + "\n\n학생 글:\n" + text;
+}
+document.addEventListener("click", ev => {
+  const b = ev.target.closest("[data-act]"); if (!b) return;
+  const act = b.dataset.act, k = b.dataset.k;
+  if (act === "say") { speak(b.dataset.t, parseFloat(b.dataset.r) || 0.95); return; }
+  if (act === "profile") { S.profile = k; UI.day = TODAY(); resetDay(); save(); }
+  else if (act === "tab") UI.tab = k;
+  else if (act === "prev") { UI.day = Math.max(0, UI.day - 1); resetDay(); }
+  else if (act === "next") { UI.day = Math.min(TODAY(), UI.day + 1); resetDay(); }
+  else if (act === "vmode") { UI.vmode = k; if (k !== "cards") UI.quiz = null; }
+  else if (act === "flip") UI.flip = true;
+  else if (act === "cardsagain") { UI.ci = 0; UI.flip = false; }
+  else if (act === "grade") { const w = todayWords()[UI.ci].w; if (k === "1") { setBox(w, boxOf(w) + 1); addPoints(2); } else setBox(w, 0); UI.ci++; UI.flip = false; }
+  else if (act === "pick") { const q = UI.quiz, c = q.cur; if (c.picked) return; c.picked = k; if (k === c.word.w) { q.ok++; setBox(c.word.w, boxOf(c.word.w) + 1); addPoints(10); } else setBox(c.word.w, boxOf(c.word.w) - 1); }
+  else if (act === "qnext") { const q = UI.quiz; q.i++; if (q.i >= q.list.length) { q.done = true; if (q.mode === "today") markDone("vocab"); } else q.cur = newQ(q.list[q.i]); }
+  else if (act === "qrestart") startQuiz(UI.quiz.mode);
+  else if (act === "answer") {
+    const qi = parseInt(b.dataset.q, 10), oi = parseInt(k, 10); if (UI.ans[qi] !== undefined) return;
+    UI.ans[qi] = oi; UI.ansOk = UI.ansOk || []; UI.ansOk[qi] = b.dataset.ok === "1";
+    if (UI.ansOk[qi]) addPoints(10); else { touch(); save(); }
+    const ps = LV().passages[idx()]; if (ps.q.every((x, i) => UI.ans[i] !== undefined)) markDone("read");
+  }
+  else if (act === "lmode") UI.lmode = k;
+  else if (act === "lsel") UI.ls = parseInt(k, 10);
+  else if (act === "lnext") UI.ls = (UI.ls + 1) % 3;
+  else if (act === "dretry") UI.dt[UI.ls] = { text: "", res: null };
+  else if (act === "dcheck") {
+    const el = document.getElementById("dict-in"), val = el ? el.value : "", st = UI.dt[UI.ls] || (UI.dt[UI.ls] = { text: "", res: null });
+    st.text = val; const s = LV().sents[3 * idx() + UI.ls], t = norm(s.t), u = norm(val);
+    if (!u.length) { toast("들은 문장을 먼저 써 보세요."); return; }
+    const hit = lcsHits(t, u), hits = hit.filter(Boolean).length, perfect = hits === t.length && u.length === t.length;
+    st.res = { tokens: t.map((w, i) => ({ w, hit: hit[i] })), hits, perfect };
+    if (perfect) addPoints(10); else { touch(); save(); }
+    cur().done[UI.day + ":dict:" + UI.ls] = 1; save();
+    if ([0, 1, 2].every(i => cur().done[UI.day + ":dict:" + i])) markDone("listen");
+  }
+  else if (act === "shdone") { if (award("sh:" + UI.ls, 5)) toast("+5 포인트"); }
+  else if (act === "essaysave") {
+    const el = document.getElementById("essay-in"), val = el ? el.value.trim() : "", n = val ? val.split(/\s+/).length : 0, min = META[S.profile].min;
+    if (n < min) { toast("최소 " + min + "단어를 써 주세요. 지금 " + n + "단어예요."); return; }
+    cur().essays[UI.day] = { prompt: LV().prompts[idx()], text: val }; UI.draft[UI.day] = val; touch(); save(); markDone("write");
+  }
+  else if (act === "essaycopy") {
+    const el = document.getElementById("essay-in"); if (el) UI.draft[UI.day] = el.value;
+    if (!(UI.draft[UI.day] || "").trim()) { toast("먼저 글을 써 주세요."); return; }
+    copyText(essayRequest()); return;
+  }
+  render();
+});
+document.addEventListener("input", ev => {
+  const t = ev.target;
+  if (t.id === "essay-in") { UI.draft[UI.day] = t.value; const n = t.value.trim() ? t.value.trim().split(/\s+/).length : 0, wc = document.getElementById("wc"); if (wc) wc.textContent = n + " / " + META[S.profile].min + "단어 이상"; }
+  else if (t.id === "dict-in") { const st = UI.dt[UI.ls] || (UI.dt[UI.ls] = { text: "", res: null }); st.text = t.value; }
+  else if (t.id === "name-g5" || t.id === "name-g8") { S.names[t.id.slice(5)] = t.value.trim().slice(0, 12); save(); renderTop(); }
+});
+document.addEventListener("visibilitychange", () => { if (!document.hidden && UI.day < TODAY() && UI.tab !== "write" && !UI.pinned) { /* stay on chosen day */ } });
+render();
+</script>
+</body>
+</html>
